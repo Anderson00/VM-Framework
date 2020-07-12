@@ -30,6 +30,7 @@
 *.app
 
 **/cmake-build-debug
+**/cmake-build-*
 **/CMakeCache.txt
 **/cmake_install.cmake
 **/install_manifest.txt
@@ -40,12 +41,13 @@
 **/CMakeScripts
 **/compile_commands.json
 
-include/divisible/*
-
 
 ## Local 
 
 .idea/*.xml
+.idea/*
+.vs/*
+
 
 build/**/*
 

@@ -5,8 +5,9 @@ add_executable(tests test.cpp)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories("${CMAKE_SOURCE_DIR}/extern/googletest/googletest/include")
+include_directories("${CMAKE_SOURCE_DIR}/extern/cxxopts/include")
 
-target_link_libraries(tests gtest gmock gtest_main)
+target_link_libraries(tests gtest gmock gtest_main cxxopts)
 set_target_properties(tests PROPERTIES FOLDER test)
 
 

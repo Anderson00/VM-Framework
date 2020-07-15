@@ -47,6 +47,7 @@
 .idea/*.xml
 .idea/*
 .vs/*
+.vscode/*
 
 
 build/**/*

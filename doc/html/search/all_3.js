@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['iappliance_19',['IAppliance',['../dc/d10/class_v_box_1_1_i_appliance.html',1,'VBox']]],
+  ['icloudnetwork_20',['ICloudNetwork',['../d4/d0a/class_v_box_1_1_i_cloud_network.html',1,'VBox']]],
+  ['icloudprovidermanager_21',['ICloudProviderManager',['../d6/d64/class_v_box_1_1_i_cloud_provider_manager.html',1,'VBox']]],
+  ['idhcpserver_22',['IDHCPServer',['../d4/d1d/class_v_box_1_1_i_d_h_c_p_server.html',1,'VBox']]],
+  ['ieventsource_23',['IEventSource',['../d2/d36/class_v_box_1_1_i_event_source.html',1,'VBox']]],
+  ['iguestostype_24',['IGuestOSType',['../d9/ddf/class_v_box_1_1_i_guest_o_s_type.html',1,'VBox']]],
+  ['ihost_25',['IHost',['../d2/d07/class_v_box_1_1_i_host.html',1,'VBox']]],
+  ['imachine_26',['IMachine',['../d2/dca/class_v_box_1_1_i_machine.html',1,'VBox']]],
+  ['imedium_27',['IMedium',['../d7/d36/class_v_box_1_1_i_medium.html',1,'VBox']]],
+  ['inatnetwork_28',['INATNetwork',['../d7/d28/class_v_box_1_1_i_n_a_t_network.html',1,'VBox']]],
+  ['iperformancecollector_29',['IPerformanceCollector',['../de/dab/class_v_box_1_1_i_performance_collector.html',1,'VBox']]],
+  ['iprogress_30',['IProgress',['../d7/d7b/class_v_box_1_1_i_progress.html',1,'VBox']]],
+  ['isession_31',['ISession',['../dc/d2e/class_v_box_1_1_i_session.html',1,'VBox']]],
+  ['isharedfolder_32',['ISharedFolder',['../db/d6a/class_v_box_1_1_i_shared_folder.html',1,'VBox']]],
+  ['isystemproperties_33',['ISystemProperties',['../d4/dcd/class_v_box_1_1_i_system_properties.html',1,'VBox']]],
+  ['iunattended_34',['IUnattended',['../d9/db9/class_v_box_1_1_i_unattended.html',1,'VBox']]],
+  ['ivirtualbox_35',['IVirtualBox',['../de/dfc/class_v_box_1_1_i_virtual_box.html',1,'VBox']]],
+  ['iwebsessionmanager_36',['IWebSessionManager',['../d4/d6f/class_v_box_1_1_i_web_session_manager.html',1,'VBox']]]
+];

@@ -1,0 +1,420 @@
+\doxysection{V\+Box\+::I\+Virtual\+Box Class Reference}
+\label{class_v_box_1_1_i_virtual_box}\index{VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \textbf{ check\+Firmware\+Present} (V\+Box\+::\+Firmware\+Type firmware\+Type, std\+::wstring version, std\+::wstring url, std\+::wstring file)
+\begin{DoxyCompactList}\small\item\em Check if this Virtual\+Box installation has a firmware of the given type available, either systemwide or per-\/user. Optionally, this may return a hint where this firmware can be downloaded from. \end{DoxyCompactList}\item 
+std\+::wstring \textbf{ compose\+Machine\+Filename} (std\+::wstring name, std\+::wstring group, std\+::wstring create\+Flags, std\+::wstring base\+Folder)
+\begin{DoxyCompactList}\small\item\em Returns a recommended full path of the settings file name for a new virtual machine. This A\+PI serves two purposes\+: \end{DoxyCompactList}\item 
+\mbox{\label{class_v_box_1_1_i_virtual_box_af91413be6f987d272a1319c88be7165d}} 
+\textbf{ V\+Box\+::\+I\+Appliance} \textbf{ create\+Appliance} ()
+\begin{DoxyCompactList}\small\item\em Creates a new appliance object, which represents an appliance in the Open Virtual Machine Format (O\+VF). This can then be used to import an O\+VF appliance into Virtual\+Box or to export machines as an O\+VF appliance; see the documentation for \doxyref{I\+Appliance}{p.}{dc/d10/class_v_box_1_1_i_appliance} for details. \end{DoxyCompactList}\item 
+\textbf{ V\+Box\+::\+I\+Cloud\+Network} \textbf{ create\+Cloud\+Network} (std\+::wstring network\+Name)
+\item 
+\textbf{ V\+Box\+::\+I\+D\+H\+C\+P\+Server} \textbf{ create\+D\+H\+C\+P\+Server} (std\+::wstring name)
+\begin{DoxyCompactList}\small\item\em Creates a D\+H\+CP server settings to be used for the given internal network name If this method fails, the following error codes may be reported\+: • E\+\_\+\+I\+N\+V\+A\+L\+I\+D\+A\+RG\+: Host network interface name already exists. \end{DoxyCompactList}\item 
+\textbf{ V\+Box\+::\+I\+Machine} \textbf{ create\+Machine} (std\+::wstring settings\+File, std\+::wstring name, std\+::vector$<$ std\+::wstring $>$ groups, std\+::wstring os\+Type\+Id, std\+::wstring flags)
+\begin{DoxyCompactList}\small\item\em Creates a new virtual machine by creating a machine settings file at the given location. Virtual\+Box machine settings files use a custom X\+ML dialect. Starting with Virtual\+Box 4.\+0, a “.\+vbox” extension is recommended, but not enforced, and machine files can be created at arbitrary locations. However, it is recommended that machines are created in the default machine folder (e.\+g. “/home/user/\+Virtual\+Box V\+Ms/name/name.\+vbox”; see I\+System\+Properties\+::default\+Machine\+Folder). If you specify null or empty string (which is recommended) for the settings\+File argument, \doxyref{compose\+Machine\+Filename()}{p.}{de/dfc/class_v_box_1_1_i_virtual_box_a07f32e49749ff44dd38113725af6247b} is called automatically to have such a recommended name composed based on the machine name given in the name argument and the primary group. If the resulting settings file already exists, this method will fail, unless the force\+Overwrite flag is set. The new machine is created unregistered, with the initial configuration set according to the specified guest OS type. A typical sequence of actions to create a new virtual machine is as follows\+: \end{DoxyCompactList}\item 
+\textbf{ V\+Box\+::\+I\+Medium} \textbf{ create\+Medium} (std\+::wstring format, std\+::wstring location, V\+Box\+::\+Access\+Mode access\+Mode, V\+Box\+::\+Device\+Type a\+Device\+Type\+Type)
+\begin{DoxyCompactList}\small\item\em Creates a new base medium object that will use the given storage format and location for medium data. The actual storage unit is not created by this method. In order to do it, and before you are able to attach the created medium to virtual machines, you must call one of the following methods to allocate a format-\/specific storage unit at the specified location\+: \end{DoxyCompactList}\item 
+\textbf{ V\+Box\+::\+I\+N\+A\+T\+Network} \textbf{ create\+N\+A\+T\+Network} (std\+::wstring network\+Name)
+\item 
+void \textbf{ create\+Shared\+Folder} (std\+::wstring name, std\+::wstring host\+Path, bool writable, bool automount, std\+::wstring auto\+Mount\+Point)
+\begin{DoxyCompactList}\small\item\em Creates a new global shared folder by associating the given logical name with the given host path, adds it to the collection of shared folders and starts sharing it. Refer to the description of \doxyref{I\+Shared\+Folder}{p.}{db/d6a/class_v_box_1_1_i_shared_folder} to read more about logical names. Note\+: In the current implementation, this operation is not implemented. \end{DoxyCompactList}\item 
+\textbf{ V\+Box\+::\+I\+Unattended} \textbf{ create\+Unattended\+Installer} ()
+\begin{DoxyCompactList}\small\item\em Creates a new \doxyref{I\+Unattended}{p.}{d9/db9/class_v_box_1_1_i_unattended} guest installation object. This can be used to analyze an installation I\+SO to create and configure a new machine for it to be installed on. It can also be used to (re)install an existing machine. \end{DoxyCompactList}\item 
+\textbf{ V\+Box\+::\+I\+Cloud\+Network} \textbf{ find\+Cloud\+Network\+By\+Name} (std\+::wstring network\+Name)
+\item 
+\textbf{ V\+Box\+::\+I\+D\+H\+C\+P\+Server} \textbf{ find\+D\+H\+C\+P\+Server\+By\+Network\+Name} (std\+::wstring name)
+\begin{DoxyCompactList}\small\item\em Searches a D\+H\+CP server settings to be used for the given internal network name If this method fails, the following error codes may be reported\+: \end{DoxyCompactList}\item 
+\textbf{ V\+Box\+::\+I\+Machine} \textbf{ find\+Machine} (std\+::wstring name\+Or\+Id)
+\begin{DoxyCompactList}\small\item\em Attempts to find a virtual machine given its name or U\+U\+ID. {\bfseries{Note\+:}} Inaccessible machines cannot be found by name, only by U\+U\+ID, because their name cannot safely be determined. If this method fails, the following error codes may be reported\+: \end{DoxyCompactList}\item 
+\textbf{ V\+Box\+::\+I\+N\+A\+T\+Network} \textbf{ find\+N\+A\+T\+Network\+By\+Name} (std\+:wstring network\+Name)
+\item 
+std\+::wstring \textbf{ get\+Extra\+Data} (std\+::wstring key)
+\begin{DoxyCompactList}\small\item\em eturns associated global extra data. If the requested data key does not exist, this function will succeed and return an empty string in the value argument. If this method fails, the following error codes may be reported\+: \end{DoxyCompactList}\item 
+\mbox{\label{class_v_box_1_1_i_virtual_box_a4495658bd831bb2e4e310ce4469fecaf}} 
+std\+::vector$<$ std\+::wstring $>$ \textbf{ get\+Extra\+Data\+Keys} ()
+\begin{DoxyCompactList}\small\item\em Returns an array representing the global extra data keys which currently have values defined. \end{DoxyCompactList}\item 
+\textbf{ V\+Box\+::\+I\+Guest\+O\+S\+Type} \textbf{ get\+Guest\+O\+S\+Type} (std\+::wstring id)
+\begin{DoxyCompactList}\small\item\em Returns an object describing the specified guest OS type. The requested guest OS type is specified using a string which is a mnemonic identifier of the guest operating system, such as \char`\"{}win31\char`\"{} or \char`\"{}ubuntu\char`\"{}. The guest OS type ID of a particular virtual machine can be read or set using the I\+Machine\+::\+O\+S\+Type\+Id attribute. The guest\+O\+S\+Types[] collection contains all available guest OS type objects. Each object has an I\+Guest\+O\+S\+Type\+::id attribute which contains an identifier of the guest OS this object describes. While this function returns an error for unknown guest OS types, they can be still used without serious problems (if one accepts the fact that there is no default VM config information). If this method fails, the following error codes may be reported\+: \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \textbf{ V\+Box\+::\+I\+Machine} $>$ $>$ \textbf{ get\+Machines\+By\+Groups} (std\+::vector$<$ std\+::wstring $>$ groups)
+\begin{DoxyCompactList}\small\item\em Gets all machine references which are in one of the specified groups. \end{DoxyCompactList}\item 
+std\+::vector$<$ V\+Box\+::\+Machine\+State $>$ \textbf{ get\+Machine\+States} (std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \textbf{ V\+Box\+::\+I\+Machine} $>$$>$ machines)
+\begin{DoxyCompactList}\small\item\em Gets the state of several machines in a single operation. \end{DoxyCompactList}\item 
+\textbf{ V\+Box\+::\+I\+Machine} \textbf{ open\+Machine} (std\+::wstring settins\+File)
+\begin{DoxyCompactList}\small\item\em Opens a virtual machine from the existing settings file. The opened machine remains unregistered until you call register\+Machine(). The specified settings file name must be fully qualified. The file must exist and be a valid machine X\+ML settings file whose contents will be used to construct the machine object. \end{DoxyCompactList}\item 
+\textbf{ V\+Box\+::\+I\+Medium} \textbf{ open\+Medium} (std\+::wstring location, V\+Box\+::\+Device\+Type device\+Type, V\+Box\+::\+Access\+Mode access\+Mode, bool force\+New\+Uuid)
+\begin{DoxyCompactList}\small\item\em Finds existing media or opens a medium from an existing storage location. Once a medium has been opened, it can be passed to other Virtual\+Box methods, in particular to I\+Machine\+::attach\+Device(). Depending on the given device type, the file at the storage location must be in one of the media formats understood by Virtual\+Box\+: \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_v_box_1_1_i_virtual_box_a209b99537b497637579312d45c6a3800}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!checkFirmwarePresent@{checkFirmwarePresent}}
+\index{checkFirmwarePresent@{checkFirmwarePresent}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{checkFirmwarePresent()}
+{\footnotesize\ttfamily bool V\+Box\+::\+I\+Virtual\+Box\+::check\+Firmware\+Present (\begin{DoxyParamCaption}\item[{V\+Box\+::\+Firmware\+Type}]{firmware\+Type,  }\item[{std\+::wstring}]{version,  }\item[{std\+::wstring}]{url,  }\item[{std\+::wstring}]{file }\end{DoxyParamCaption})}
+
+
+
+Check if this Virtual\+Box installation has a firmware of the given type available, either systemwide or per-\/user. Optionally, this may return a hint where this firmware can be downloaded from. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em firmware\+Type} & Type of firmware to check \\
+\hline
+\mbox{\texttt{ in}}  & {\em version} & Expected version number, usually empty string (presently ignored). \\
+\hline
+\mbox{\texttt{ out}}  & {\em url} & Suggested U\+RL to download this firmware from. \\
+\hline
+\mbox{\texttt{ out}}  & {\em file} & Filename of firmware, only valid if result == T\+R\+UE \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_a07f32e49749ff44dd38113725af6247b}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!composeMachineFilename@{composeMachineFilename}}
+\index{composeMachineFilename@{composeMachineFilename}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{composeMachineFilename()}
+{\footnotesize\ttfamily std\+::wstring V\+Box\+::\+I\+Virtual\+Box\+::compose\+Machine\+Filename (\begin{DoxyParamCaption}\item[{std\+::wstring}]{name,  }\item[{std\+::wstring}]{group,  }\item[{std\+::wstring}]{create\+Flags,  }\item[{std\+::wstring}]{base\+Folder }\end{DoxyParamCaption})}
+
+
+
+Returns a recommended full path of the settings file name for a new virtual machine. This A\+PI serves two purposes\+: 
+
+
+\begin{DoxyItemize}
+\item It gets called by \doxyref{create\+Machine()}{p.}{de/dfc/class_v_box_1_1_i_virtual_box_a0f994b08f5f35d895a4a2579cbc86bbe} if null or empty string (which is recommended) is specified for the settings\+File argument there, which means that A\+PI should use a recommended default file name.  
+\item It can be called manually by a client software before creating a machine, e.\+g. if that client wants to pre-\/create the machine directory to create virtual hard disks in that directory together with the new machine settings file. In that case, the file name should be stripped from the full settings file path returned by this function to obtain the machine directory.  
+\end{DoxyItemize}See I\+Machine\+::name and \doxyref{create\+Machine()}{p.}{de/dfc/class_v_box_1_1_i_virtual_box_a0f994b08f5f35d895a4a2579cbc86bbe} for more details about the machine name. group\+Name defines which additional subdirectory levels should be included. It must be either a valid group name or null or empty string which designates that the machine will not be related to a machine group. If base\+Folder is a null or empty string (which is recommended), the default machine settings folder (see I\+System\+Properties\+::default\+Machine\+Folder) will be used as a base folder for the created machine, resulting in a file name like “/home/user/\+Virtual\+Box V\+Ms/name/name.\+vbox”. Otherwise the given base folder will be used. This method does not access the host disks. In particular, it does not check for whether a machine with this name already exists.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em name} & Suggested machine name. \\
+\hline
+\mbox{\texttt{ in}}  & {\em group} & Machine group name for the new machine or machine group. It is used to determine the right subdirectory \\
+\hline
+\mbox{\texttt{ in}}  & {\em create\+Flags} & Machine creation flags, see \doxyref{create\+Machine()}{p.}{de/dfc/class_v_box_1_1_i_virtual_box_a0f994b08f5f35d895a4a2579cbc86bbe} (optional). \\
+\hline
+\mbox{\texttt{ in}}  & {\em base\+Folder} & Base machine folder (optional). \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_a9373b4492aa0d52465cad0ca28315950}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!createCloudNetwork@{createCloudNetwork}}
+\index{createCloudNetwork@{createCloudNetwork}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{createCloudNetwork()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+Cloud\+Network} V\+Box\+::\+I\+Virtual\+Box\+::create\+Cloud\+Network (\begin{DoxyParamCaption}\item[{std\+::wstring}]{network\+Name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em network\+Name} & Network name \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_ad703d6fb3c187c563f192af763b56178}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!createDHCPServer@{createDHCPServer}}
+\index{createDHCPServer@{createDHCPServer}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{createDHCPServer()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+D\+H\+C\+P\+Server} V\+Box\+::\+I\+Virtual\+Box\+::create\+D\+H\+C\+P\+Server (\begin{DoxyParamCaption}\item[{std\+::wstring}]{name }\end{DoxyParamCaption})}
+
+
+
+Creates a D\+H\+CP server settings to be used for the given internal network name If this method fails, the following error codes may be reported\+: • E\+\_\+\+I\+N\+V\+A\+L\+I\+D\+A\+RG\+: Host network interface name already exists. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em name} & server name \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_a0f994b08f5f35d895a4a2579cbc86bbe}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!createMachine@{createMachine}}
+\index{createMachine@{createMachine}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{createMachine()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+Machine} V\+Box\+::\+I\+Virtual\+Box\+::create\+Machine (\begin{DoxyParamCaption}\item[{std\+::wstring}]{settings\+File,  }\item[{std\+::wstring}]{name,  }\item[{std\+::vector$<$ std\+::wstring $>$}]{groups,  }\item[{std\+::wstring}]{os\+Type\+Id,  }\item[{std\+::wstring}]{flags }\end{DoxyParamCaption})}
+
+
+
+Creates a new virtual machine by creating a machine settings file at the given location. Virtual\+Box machine settings files use a custom X\+ML dialect. Starting with Virtual\+Box 4.\+0, a “.\+vbox” extension is recommended, but not enforced, and machine files can be created at arbitrary locations. However, it is recommended that machines are created in the default machine folder (e.\+g. “/home/user/\+Virtual\+Box V\+Ms/name/name.\+vbox”; see I\+System\+Properties\+::default\+Machine\+Folder). If you specify null or empty string (which is recommended) for the settings\+File argument, \doxyref{compose\+Machine\+Filename()}{p.}{de/dfc/class_v_box_1_1_i_virtual_box_a07f32e49749ff44dd38113725af6247b} is called automatically to have such a recommended name composed based on the machine name given in the name argument and the primary group. If the resulting settings file already exists, this method will fail, unless the force\+Overwrite flag is set. The new machine is created unregistered, with the initial configuration set according to the specified guest OS type. A typical sequence of actions to create a new virtual machine is as follows\+: 
+
+
+\begin{DoxyEnumerate}
+\item Call this method to have a new machine created. The returned machine object will be “mutable” allowing to change any machine property.  
+\item Configure the machine using the appropriate attributes and methods.  
+\item Call I\+Machine\+::save\+Settings() to write the settings to the machine’s X\+ML settings file. The configuration of the newly created machine will not be saved to disk until this method is called.  
+\item Call register\+Machine() to add the machine to the list of machines known to Virtual\+Box.  
+\end{DoxyEnumerate}The specified guest OS type identifier must match an ID of one of known guest OS types listed in the guest\+O\+S\+Types[] array.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em settings\+File} & Fully qualified path where the settings file should be created, empty string or null for a default folder and file based on the name argument and the primary group. (see \doxyref{compose\+Machine\+Filename()}{p.}{de/dfc/class_v_box_1_1_i_virtual_box_a07f32e49749ff44dd38113725af6247b}). \\
+\hline
+\mbox{\texttt{ in}}  & {\em name} & Machine name. \\
+\hline
+\mbox{\texttt{ in}}  & {\em groups} & Array of group names. null or an empty array have the same meaning as an array with just the empty string or \char`\"{}/\char`\"{}, i.\+e. create a machine without group association. \\
+\hline
+\mbox{\texttt{ in}}  & {\em os\+Type\+Id} & Guest OS Type ID. \\
+\hline
+\mbox{\texttt{ in}}  & {\em flags} & Additional property parameters, passed as a comma-\/separated list of “name=value” type entries. The following ones are recognized\+: force\+Overwrite=1 to overwrite an existing machine settings file, U\+U\+ID=$<$uuid$>$ to specify a machine U\+U\+ID and directory\+Includes\+U\+U\+ID=1 to switch to a special VM directory naming scheme which should not be used unless necessary. \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_ab150bf9442f03f3490844db1f60df45c}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!createMedium@{createMedium}}
+\index{createMedium@{createMedium}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{createMedium()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+Medium} V\+Box\+::\+I\+Virtual\+Box\+::create\+Medium (\begin{DoxyParamCaption}\item[{std\+::wstring}]{format,  }\item[{std\+::wstring}]{location,  }\item[{V\+Box\+::\+Access\+Mode}]{access\+Mode,  }\item[{V\+Box\+::\+Device\+Type}]{a\+Device\+Type\+Type }\end{DoxyParamCaption})}
+
+
+
+Creates a new base medium object that will use the given storage format and location for medium data. The actual storage unit is not created by this method. In order to do it, and before you are able to attach the created medium to virtual machines, you must call one of the following methods to allocate a format-\/specific storage unit at the specified location\+: 
+
+
+\begin{DoxyItemize}
+\item I\+Medium\+::create\+Base\+Storage()  
+\item I\+Medium\+::create\+Diff\+Storage()  
+\end{DoxyItemize}Some medium attributes, such as I\+Medium\+::id, may remain uninitialized until the medium storage unit is successfully created by one of the above methods. Depending on the given device type, the file at the storage location must be in one of the media formats understood by Virtual\+Box\+: 
+\begin{DoxyItemize}
+\item With a “\+Hard\+Disk” device type, the file must be a hard disk image in one of the formats supported by Virtual\+Box (see I\+System\+Properties\+::medium\+Formats[]). After the storage unit is successfully created and this method succeeds, if the medium is a base medium, it will be added to the hard\+Disks[] array attribute.  
+\item With a “\+D\+V\+D” device type, the file must be an I\+SO 9960 C\+D/\+D\+VD image. After this method succeeds, the medium will be added to the D\+V\+D\+Images[] array attribute.  
+\item With a “\+Floppy” device type, the file must be an R\+AW floppy image. After this method succeeds, the medium will be added to the floppy\+Images[] array attribute.  
+\end{DoxyItemize}The list of all storage formats supported by this Virtual\+Box installation can be obtained using I\+System\+Properties\+::medium\+Formats[]. If the format attribute is empty or null then the default storage format specified by I\+System\+Properties\+::default\+Hard\+Disk\+Format will be used for disks r creating a storage unit of the medium. Note that the format of the location string is storage format specific. See I\+Medium\+::location and \doxyref{I\+Medium}{p.}{d7/d36/class_v_box_1_1_i_medium} for more details. If this method fails, the following error codes may be reported\+: 
+\begin{DoxyItemize}
+\item V\+B\+O\+X\+\_\+\+E\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+ND\+: format identifier is invalid. See I\+System\+Properties\+::medium\+Formats[].  
+\item V\+B\+O\+X\+\_\+\+E\+\_\+\+F\+I\+L\+E\+\_\+\+E\+R\+R\+OR\+: location is a not valid file name (for file-\/based formats only).  
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em format} & Identifier of the storage format to use for the new medium. \\
+\hline
+\mbox{\texttt{ in}}  & {\em location} & Location of the storage unit for the new medium. \\
+\hline
+\mbox{\texttt{ in}}  & {\em access\+Mode} & Whether to open the image in read/write or read-\/only mode. For a “\+D\+V\+D” device type, this is ignored and read-\/only mode is always assumed. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Device\+Type\+Type} & Must be one of “\+Hard\+Disk”, “\+D\+V\+D” or “\+Floppy”. \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_a28e8fead0c0aaa23745f640df8c277c7}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!createNATNetwork@{createNATNetwork}}
+\index{createNATNetwork@{createNATNetwork}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{createNATNetwork()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+N\+A\+T\+Network} V\+Box\+::\+I\+Virtual\+Box\+::create\+N\+A\+T\+Network (\begin{DoxyParamCaption}\item[{std\+::wstring}]{network\+Name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em network\+Name} & \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_a746e4db80f714c084f670e6411f0d4c3}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!createSharedFolder@{createSharedFolder}}
+\index{createSharedFolder@{createSharedFolder}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{createSharedFolder()}
+{\footnotesize\ttfamily void V\+Box\+::\+I\+Virtual\+Box\+::create\+Shared\+Folder (\begin{DoxyParamCaption}\item[{std\+::wstring}]{name,  }\item[{std\+::wstring}]{host\+Path,  }\item[{bool}]{writable,  }\item[{bool}]{automount,  }\item[{std\+::wstring}]{auto\+Mount\+Point }\end{DoxyParamCaption})}
+
+
+
+Creates a new global shared folder by associating the given logical name with the given host path, adds it to the collection of shared folders and starts sharing it. Refer to the description of \doxyref{I\+Shared\+Folder}{p.}{db/d6a/class_v_box_1_1_i_shared_folder} to read more about logical names. Note\+: In the current implementation, this operation is not implemented. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em name} & Unique logical name of the shared folder. \\
+\hline
+\mbox{\texttt{ in}}  & {\em host\+Path} & Full path to the shared folder in the host file system. \\
+\hline
+\mbox{\texttt{ in}}  & {\em writable} & Whether the share is writable or readonly \\
+\hline
+\mbox{\texttt{ in}}  & {\em automount} & Whether the share gets automatically mounted by the guest or not. \\
+\hline
+\mbox{\texttt{ in}}  & {\em auto\+Mount\+Point} & Where the guest should automatically mount the folder, if possible. For Windows and O\+S/2 guests this should be a drive letter, while other guests it should be a absolute directory. \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_a83b4baa8216d2c8bb0804052599a356a}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!createUnattendedInstaller@{createUnattendedInstaller}}
+\index{createUnattendedInstaller@{createUnattendedInstaller}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{createUnattendedInstaller()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+Unattended} V\+Box\+::\+I\+Virtual\+Box\+::create\+Unattended\+Installer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Creates a new \doxyref{I\+Unattended}{p.}{d9/db9/class_v_box_1_1_i_unattended} guest installation object. This can be used to analyze an installation I\+SO to create and configure a new machine for it to be installed on. It can also be used to (re)install an existing machine. 
+
+\mbox{\label{class_v_box_1_1_i_virtual_box_ad712af6c1ac8f51da33bf8263e9919cb}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!findCloudNetworkByName@{findCloudNetworkByName}}
+\index{findCloudNetworkByName@{findCloudNetworkByName}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{findCloudNetworkByName()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+Cloud\+Network} V\+Box\+::\+I\+Virtual\+Box\+::find\+Cloud\+Network\+By\+Name (\begin{DoxyParamCaption}\item[{std\+::wstring}]{network\+Name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em network\+Name} & \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_ac79d94105e014eb37ce3d3a23bcff69d}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!findDHCPServerByNetworkName@{findDHCPServerByNetworkName}}
+\index{findDHCPServerByNetworkName@{findDHCPServerByNetworkName}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{findDHCPServerByNetworkName()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+D\+H\+C\+P\+Server} V\+Box\+::\+I\+Virtual\+Box\+::find\+D\+H\+C\+P\+Server\+By\+Network\+Name (\begin{DoxyParamCaption}\item[{std\+::wstring}]{name }\end{DoxyParamCaption})}
+
+
+
+Searches a D\+H\+CP server settings to be used for the given internal network name If this method fails, the following error codes may be reported\+: 
+
+
+\begin{DoxyItemize}
+\item E\+\_\+\+I\+N\+V\+A\+L\+I\+D\+A\+RG\+: Host network interface name already exists.  
+\end{DoxyItemize}
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em name} & \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_a8824a29ad3d5d5b78a733ccf2d2fa14c}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!findMachine@{findMachine}}
+\index{findMachine@{findMachine}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{findMachine()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+Machine} V\+Box\+::\+I\+Virtual\+Box\+::find\+Machine (\begin{DoxyParamCaption}\item[{std\+::wstring}]{name\+Or\+Id }\end{DoxyParamCaption})}
+
+
+
+Attempts to find a virtual machine given its name or U\+U\+ID. {\bfseries{Note\+:}} Inaccessible machines cannot be found by name, only by U\+U\+ID, because their name cannot safely be determined. If this method fails, the following error codes may be reported\+: 
+
+
+\begin{DoxyItemize}
+\item V\+B\+O\+X\+\_\+\+E\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+ND\+: Could not find registered machine matching name\+Or\+Id.  
+\end{DoxyItemize}
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em name\+Or\+Id} & What to search for. This can either be the U\+U\+ID or the name of a virtual machine. \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_ab01717b02c4b4b69f8c876951cba8fff}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!findNATNetworkByName@{findNATNetworkByName}}
+\index{findNATNetworkByName@{findNATNetworkByName}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{findNATNetworkByName()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+N\+A\+T\+Network} V\+Box\+::\+I\+Virtual\+Box\+::find\+N\+A\+T\+Network\+By\+Name (\begin{DoxyParamCaption}\item[{std\+:wstring}]{network\+Name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em network\+Name} & \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_a98a32fb43fccf7dedd0c81e7f8465393}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!getExtraData@{getExtraData}}
+\index{getExtraData@{getExtraData}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{getExtraData()}
+{\footnotesize\ttfamily std\+::wstring V\+Box\+::\+I\+Virtual\+Box\+::get\+Extra\+Data (\begin{DoxyParamCaption}\item[{std\+::wstring}]{key }\end{DoxyParamCaption})}
+
+
+
+eturns associated global extra data. If the requested data key does not exist, this function will succeed and return an empty string in the value argument. If this method fails, the following error codes may be reported\+: 
+
+
+\begin{DoxyItemize}
+\item V\+B\+O\+X\+\_\+\+E\+\_\+\+F\+I\+L\+E\+\_\+\+E\+R\+R\+OR\+: Settings file not accessible.  
+\item V\+B\+O\+X\+\_\+\+E\+\_\+\+X\+M\+L\+\_\+\+E\+R\+R\+OR\+: Could not parse the settings file.  
+\end{DoxyItemize}
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em key} & Name of the data key to get. \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_ad04a5af022c52cc2fc8a87e420347ad7}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!getGuestOSType@{getGuestOSType}}
+\index{getGuestOSType@{getGuestOSType}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{getGuestOSType()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+Guest\+O\+S\+Type} V\+Box\+::\+I\+Virtual\+Box\+::get\+Guest\+O\+S\+Type (\begin{DoxyParamCaption}\item[{std\+::wstring}]{id }\end{DoxyParamCaption})}
+
+
+
+Returns an object describing the specified guest OS type. The requested guest OS type is specified using a string which is a mnemonic identifier of the guest operating system, such as \char`\"{}win31\char`\"{} or \char`\"{}ubuntu\char`\"{}. The guest OS type ID of a particular virtual machine can be read or set using the I\+Machine\+::\+O\+S\+Type\+Id attribute. The guest\+O\+S\+Types[] collection contains all available guest OS type objects. Each object has an I\+Guest\+O\+S\+Type\+::id attribute which contains an identifier of the guest OS this object describes. While this function returns an error for unknown guest OS types, they can be still used without serious problems (if one accepts the fact that there is no default VM config information). If this method fails, the following error codes may be reported\+: 
+
+
+\begin{DoxyItemize}
+\item E\+\_\+\+I\+N\+V\+A\+L\+I\+D\+A\+RG\+: id is not a valid Guest OS type.  
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em id} & Guest OS type ID string \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_ad1f4e27554b23a35466ff636cb2cebe7}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!getMachinesByGroups@{getMachinesByGroups}}
+\index{getMachinesByGroups@{getMachinesByGroups}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{getMachinesByGroups()}
+{\footnotesize\ttfamily std\+::vector$<$std\+::shared\+\_\+ptr$<$\textbf{ V\+Box\+::\+I\+Machine}$>$ $>$ V\+Box\+::\+I\+Virtual\+Box\+::get\+Machines\+By\+Groups (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::wstring $>$}]{groups }\end{DoxyParamCaption})}
+
+
+
+Gets all machine references which are in one of the specified groups. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em groups} & What groups to match. The usual group list rules apply, i.\+e. passing an empty list will match V\+Ms in the toplevel group, likewise the empty string. \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_a09ab45b4df03e464346cd93452418601}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!getMachineStates@{getMachineStates}}
+\index{getMachineStates@{getMachineStates}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{getMachineStates()}
+{\footnotesize\ttfamily std\+::vector$<$V\+Box\+::\+Machine\+State$>$ V\+Box\+::\+I\+Virtual\+Box\+::get\+Machine\+States (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \textbf{ V\+Box\+::\+I\+Machine} $>$$>$}]{machines }\end{DoxyParamCaption})}
+
+
+
+Gets the state of several machines in a single operation. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em machines} & Array with the machine references. \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_a90ccd905e02ea72e6655d23bf51535a3}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!openMachine@{openMachine}}
+\index{openMachine@{openMachine}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{openMachine()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+Machine} V\+Box\+::\+I\+Virtual\+Box\+::open\+Machine (\begin{DoxyParamCaption}\item[{std\+::wstring}]{settins\+File }\end{DoxyParamCaption})}
+
+
+
+Opens a virtual machine from the existing settings file. The opened machine remains unregistered until you call register\+Machine(). The specified settings file name must be fully qualified. The file must exist and be a valid machine X\+ML settings file whose contents will be used to construct the machine object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em settings\+File} & Name of the machine settings file. \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_v_box_1_1_i_virtual_box_a0c7a80e7a4d95fd0aec1a310833fa06a}} 
+\index{VBox::IVirtualBox@{VBox::IVirtualBox}!openMedium@{openMedium}}
+\index{openMedium@{openMedium}!VBox::IVirtualBox@{VBox::IVirtualBox}}
+\doxysubsubsection{openMedium()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+Medium} V\+Box\+::\+I\+Virtual\+Box\+::open\+Medium (\begin{DoxyParamCaption}\item[{std\+::wstring}]{location,  }\item[{V\+Box\+::\+Device\+Type}]{device\+Type,  }\item[{V\+Box\+::\+Access\+Mode}]{access\+Mode,  }\item[{bool}]{force\+New\+Uuid }\end{DoxyParamCaption})}
+
+
+
+Finds existing media or opens a medium from an existing storage location. Once a medium has been opened, it can be passed to other Virtual\+Box methods, in particular to I\+Machine\+::attach\+Device(). Depending on the given device type, the file at the storage location must be in one of the media formats understood by Virtual\+Box\+: 
+
+
+\begin{DoxyItemize}
+\item With a “\+Hard\+Disk” device type, the file must be a hard disk image in one of the formats supported by Virtual\+Box (see I\+System\+Properties\+::medium\+Formats[]). After this method succeeds, if the medium is a base medium, it will be added to the hard\+Disks[] array attribute.  
+\item With a “\+D\+V\+D” device type, the file must be an I\+SO 9960 C\+D/\+D\+VD image. After this method succeeds, the medium will be added to the D\+V\+D\+Images[] array attribute.  
+\item With a “\+Floppy” device type, the file must be an R\+AW floppy image. After this method succeeds, the medium will be added to the floppy\+Images[] array attribute.  
+\end{DoxyItemize}
+
+After having been opened, the medium can be re-\/found by this method and can be attached to virtual machines. See \doxyref{I\+Medium}{p.}{d7/d36/class_v_box_1_1_i_medium} for more details. The U\+U\+ID of the newly opened medium will either be retrieved from the storage location, if the format supports it (e.\+g. for hard disk images), or a new U\+U\+ID will be randomly generated (e.\+g. for I\+SO and R\+AW files). If for some reason you need to change the medium’s U\+U\+ID, use I\+Medium\+::set\+Ids(). If a differencing hard disk medium is to be opened by this method, the operation will succeed only if its parent medium and all ancestors, if any, are already known to this Virtual\+Box installation (for example, were opened by this method before). This method attempts to guess the storage format of the specified medium by reading medium data at the specified location. If access\+Mode is Read\+Write (which it should be for hard disks and floppies), the image is opened for read/write access and must have according permissions, as Virtual\+Box may actually write status information into the disk’s metadata sections. Note that write access is required for all typical hard disk usage in Virtual\+Box, since Virtual\+Box may need to write metadata such as a U\+U\+ID into the image. The only exception is opening a source image temporarily for copying and cloning (see I\+Medium\+::clone\+To() when the image will be closed again soon. The format of the location string is storage format specific. See I\+Medium\+::location and \doxyref{I\+Medium}{p.}{d7/d36/class_v_box_1_1_i_medium} for more details. If this method fails, the following error codes may be reported\+: 
+\begin{DoxyItemize}
+\item V\+B\+O\+X\+\_\+\+E\+\_\+\+F\+I\+L\+E\+\_\+\+E\+R\+R\+OR\+: Invalid medium storage file location or could not find the medium at the specified location.  
+\item V\+B\+O\+X\+\_\+\+E\+\_\+\+I\+P\+R\+T\+\_\+\+E\+R\+R\+OR\+: Could not get medium storage format.  
+\item E\+\_\+\+I\+N\+V\+A\+L\+I\+D\+A\+RG\+: Invalid medium storage format.  
+\item V\+B\+O\+X\+\_\+\+E\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+S\+T\+A\+TE\+: Medium has already been added to a media registry.  
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em location} & Location of the storage unit that contains medium data in one of the supported storage formats. \\
+\hline
+\mbox{\texttt{ in}}  & {\em device\+Type} & Must be one of “\+Hard\+Disk”, “\+D\+V\+D” or “\+Floppy”. \\
+\hline
+\mbox{\texttt{ in}}  & {\em access\+Mode} & Whether to open the image in read/write or read-\/only mode. For a “\+D\+V\+D” device type, this is ignored and read-\/only mode is always assumed. \\
+\hline
+\mbox{\texttt{ in}}  & {\em force\+New\+Uuid} & Allows the caller to request a completely new medium U\+U\+ID for the image which is to be opened. Useful if one intends to open an exact copy of a previously opened image, as this would normally fail due to the duplicate U\+U\+ID. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/vmcore/virtualbox/soap/I\+Virtual\+Box.\+h\end{DoxyCompactItemize}

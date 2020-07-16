@@ -1,0 +1,90 @@
+\doxysection{I\+Virtual\+Box Class Reference}
+\label{class_i_virtual_box}\index{IVirtualBox@{IVirtualBox}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \textbf{ check\+Firmware\+Present} (V\+Box\+::\+Firmware\+Type firmware\+Type, std\+::wstring version, std\+::wstring url, std\+::wstring file)
+\begin{DoxyCompactList}\small\item\em Check if this Virtual\+Box installation has a firmware of the given type available, either systemwide or per-\/user. Optionally, this may return a hint where this firmware can be downloaded from. \end{DoxyCompactList}\item 
+std\+::wstring \textbf{ compose\+Machine\+Filename} (std\+::wstring name, std\+::wstring group, std\+::wstring create\+Flags, std\+::wstring base\+Folder)
+\item 
+\mbox{\label{class_i_virtual_box_a5fa2498423d2a29a0440c144b7e45107}} 
+\textbf{ V\+Box\+::\+I\+Cloud\+Network} {\bfseries create\+Cloud\+Network} (std\+::wstring network\+Name)
+\item 
+\textbf{ V\+Box\+::\+I\+D\+H\+C\+P\+Server} \textbf{ create\+D\+H\+C\+P\+Server} (std\+::wstring name)
+\begin{DoxyCompactList}\small\item\em Creates a D\+H\+CP server settings to be used for the given internal network name If this method fails, the following error codes may be reported\+: \end{DoxyCompactList}\item 
+\textbf{ V\+Box\+::\+I\+Machine} \textbf{ create\+Machine} (std\+::wstring settings\+File, std\+::wstring name, std\+::vector$<$ std\+::wstring $>$ groups, std\+::wstring os\+Type\+Id, std\+::wstring flags)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_i_virtual_box_ab43988d964d02c69bdbf4f745f1913d2}} 
+\index{IVirtualBox@{IVirtualBox}!checkFirmwarePresent@{checkFirmwarePresent}}
+\index{checkFirmwarePresent@{checkFirmwarePresent}!IVirtualBox@{IVirtualBox}}
+\doxysubsubsection{checkFirmwarePresent()}
+{\footnotesize\ttfamily bool I\+Virtual\+Box\+::check\+Firmware\+Present (\begin{DoxyParamCaption}\item[{V\+Box\+::\+Firmware\+Type}]{firmware\+Type,  }\item[{std\+::wstring}]{version,  }\item[{std\+::wstring}]{url,  }\item[{std\+::wstring}]{file }\end{DoxyParamCaption})}
+
+
+
+Check if this Virtual\+Box installation has a firmware of the given type available, either systemwide or per-\/user. Optionally, this may return a hint where this firmware can be downloaded from. 
+
+\begin{DoxyVerb}    \param[in]  firmwareType Type of firmware to check
+    \param[in]  version      Expected version number, usually empty string (presently ignored).
+    \param[out] url          Suggested URL to download this firmware from.
+    \param[out] file         Filename of firmware, only valid if result == TRUE
+\end{DoxyVerb}
+ \mbox{\label{class_i_virtual_box_a269b5bb8dd4a71638cc18ac33c38c9ad}} 
+\index{IVirtualBox@{IVirtualBox}!composeMachineFilename@{composeMachineFilename}}
+\index{composeMachineFilename@{composeMachineFilename}!IVirtualBox@{IVirtualBox}}
+\doxysubsubsection{composeMachineFilename()}
+{\footnotesize\ttfamily std\+::wstring I\+Virtual\+Box\+::compose\+Machine\+Filename (\begin{DoxyParamCaption}\item[{std\+::wstring}]{name,  }\item[{std\+::wstring}]{group,  }\item[{std\+::wstring}]{create\+Flags,  }\item[{std\+::wstring}]{base\+Folder }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em name} & Suggested machine name. \\
+\hline
+\mbox{\texttt{ in}}  & {\em group} & Machine group name for the new machine or machine group. It is used to determine the right subdirectory \\
+\hline
+\mbox{\texttt{ in}}  & {\em create\+Flags} & Machine creation flags, see \doxyref{create\+Machine()}{p.}{df/de0/class_i_virtual_box_a296dfff1236a3c6e55e5fc5b26e8969b} (optional). \\
+\hline
+\mbox{\texttt{ in}}  & {\em base\+Folder} & Base machine folder (optional). \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_i_virtual_box_a10d20ba043d18ef9a1cfa0d5a6c92ed0}} 
+\index{IVirtualBox@{IVirtualBox}!createDHCPServer@{createDHCPServer}}
+\index{createDHCPServer@{createDHCPServer}!IVirtualBox@{IVirtualBox}}
+\doxysubsubsection{createDHCPServer()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+D\+H\+C\+P\+Server} I\+Virtual\+Box\+::create\+D\+H\+C\+P\+Server (\begin{DoxyParamCaption}\item[{std\+::wstring}]{name }\end{DoxyParamCaption})}
+
+
+
+Creates a D\+H\+CP server settings to be used for the given internal network name If this method fails, the following error codes may be reported\+: 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em name} & server name \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_i_virtual_box_a296dfff1236a3c6e55e5fc5b26e8969b}} 
+\index{IVirtualBox@{IVirtualBox}!createMachine@{createMachine}}
+\index{createMachine@{createMachine}!IVirtualBox@{IVirtualBox}}
+\doxysubsubsection{createMachine()}
+{\footnotesize\ttfamily \textbf{ V\+Box\+::\+I\+Machine} I\+Virtual\+Box\+::create\+Machine (\begin{DoxyParamCaption}\item[{std\+::wstring}]{settings\+File,  }\item[{std\+::wstring}]{name,  }\item[{std\+::vector$<$ std\+::wstring $>$}]{groups,  }\item[{std\+::wstring}]{os\+Type\+Id,  }\item[{std\+::wstring}]{flags }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em settings\+File} & Fully qualified path where the settings file should be created, empty string or null for a default folder and file based on the name argument and the primary group. (see \doxyref{compose\+Machine\+Filename()}{p.}{df/de0/class_i_virtual_box_a269b5bb8dd4a71638cc18ac33c38c9ad}). \\
+\hline
+\mbox{\texttt{ in}}  & {\em name} & Machine name. \\
+\hline
+\mbox{\texttt{ in}}  & {\em groups} & Array of group names. null or an empty array have the same meaning as an array with just the empty string or \char`\"{}/\char`\"{}, i.\+e. create a machine without group association. \\
+\hline
+\mbox{\texttt{ in}}  & {\em os\+Type\+Id} & Guest OS Type ID. \\
+\hline
+\mbox{\texttt{ in}}  & {\em flags} & Additional property parameters, passed as a comma-\/separated list of “name=value” type entries. The following ones are recognized\+: force\+Overwrite=1 to overwrite an existing machine settings file, U\+U\+ID=$<$uuid$>$ to specify a machine U\+U\+ID and directory\+Includes\+U\+U\+ID=1 to switch to a special VM directory naming scheme which should not be used unless necessary. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/vmcore/virtualbox/soap/I\+Virtual\+Box.\+h\end{DoxyCompactItemize}

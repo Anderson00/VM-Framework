@@ -1,8 +1,15 @@
 #ifndef ISESSION_H
 #define ISESSION_H
 
-class ISession{
+#include "VBox.h"
 
+namespace VBox{
+    class ISession{
+    public:
+
+    private:
+    
+    };
 };
 
 #endif

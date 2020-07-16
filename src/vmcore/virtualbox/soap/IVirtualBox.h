@@ -7,6 +7,22 @@
 #include <vector>
 #include <memory>
 
+#include "IAppliance.h"
+#include "ICloudNetwork.h"
+#include "IDHCPServer.h"
+#include "IMachine.h"
+#include "IMedium.h"
+#include "INATNetwork.h"
+#include "IUnattended.h"
+#include "IGuestOSType.h"
+#include "IHost.h"
+#include "ISystemProperties.h"
+#include "IProgress.h"
+#include "ISharedFolder.h"
+#include "IPerformanceCollector.h"
+#include "IEventSource.h"
+#include "ICloudProviderManager.h"
+
 
 namespace VBox
 {
@@ -254,7 +270,7 @@ namespace VBox
         /*!
         *   \param[in] networkName
         */
-        VBox::INATNetwork findNATNetworkByName(std:wstring networkName);
+        VBox::INATNetwork findNATNetworkByName(std::wstring networkName);
         
         /*! \brief
             eturns associated global extra data.

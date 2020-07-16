@@ -1,25 +1,6 @@
 #ifndef VBOX_H
 #define VBOX_H
 
-#include "IWebSessionManager.h"
-#include "IVirtualBox.h"
-#include "IHost.h"
-#include "ISystemProperties.h"
-#include "IMachine.h"
-#include "IMedium.h"
-#include "IProgress.h"
-#include "IGuestOSType.h"
-#include "ISharedFolder.h"
-#include "IPerformanceCollector.h"
-#include "IDHCPServer.h"
-#include "INATNetwork.h"
-#include "IEventSource.h"
-#include "ICloudNetwork.h"
-#include "ICloudProviderManager.h"
-#include "ISession.h"
-#include "IAppliance.h"
-#include "IUnattended.h"
-
 namespace VBox{
 
     enum FirmwareType{
@@ -73,7 +54,26 @@ namespace VBox{
         LastOnline,             //! Pseudo-state: last online state (for use in relational expressions).
         FirstTransient,         //! Pseudo-state: first transient state (for use in relational expressions).
         LastTransient           //! Pseudo-state: last transient state (for use in relational expressions).
-    }
+    };
 };
+
+#include "IWebSessionManager.h"
+#include "IHost.h"
+#include "ISystemProperties.h"
+#include "IMachine.h"
+#include "IMedium.h"
+#include "IProgress.h"
+#include "IGuestOSType.h"
+#include "ISharedFolder.h"
+#include "IPerformanceCollector.h"
+#include "IDHCPServer.h"
+#include "INATNetwork.h"
+#include "IEventSource.h"
+#include "ICloudNetwork.h"
+#include "ICloudProviderManager.h"
+#include "ISession.h"
+#include "IAppliance.h"
+#include "IUnattended.h"
+#include "IVirtualBox.h"
 
 #endif

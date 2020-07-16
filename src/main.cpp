@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cxxopts.hpp>
-#include "Vbox.h"
+#include "vmcore/virtualbox/soap/VBox.h"
+
+#include "soapH.h"
+#include "vboxBinding.nsmap"
 
 
 int main(int argc, char **argv){

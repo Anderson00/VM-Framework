@@ -1,24 +1,26 @@
 #ifndef IWEB_SESSION_MANAGER_H
 #define IWEB_SESSION_MANAGER_H
 
+#include "IObject.h"
 #include "IVirtualBox.h"
 #include "VBox.h"
 #include "ISession.h"
 #include <iostream>
 #include <string>
+#include <memory>
 
 namespace VBox{
-    class IWebSessionManager{
+    class IWebSessionManager : public IObject{
 
     public:
-        IWebSessionManager();
+        IWebSessionManager(VBox::SoapObject *soap, std::string endpoint) : IObject(soap, endpoint) {}
 
-        IVirtualBox logon(std::wstring username, std::wstring password);
-        void logoff(IVirtualBox &refIVirtualBox);
-        ISession getSessionObject(IVirtualBox &refIVirtualBox);
+        std::shared_ptr<VBox::IVirtualBox> logon(std::string username, std::string password);
+        void logoff(const VBox::IVirtualBox &refIVirtualBox);
+        std::shared_ptr<ISession> getSessionObject(const VBox::IVirtualBox &refIVirtualBox);
 
     private:
-        //void
+        std::shared_ptr<VBox::IVirtualBox> vbox;
     };
 };
 

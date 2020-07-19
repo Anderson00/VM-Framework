@@ -2,6 +2,8 @@
 #define VBOX_H
 
 namespace VBox{
+    
+    using SoapObject = struct soap;
 
     enum FirmwareType{
         BIOS,   //! BIOS Firmware.

@@ -1,0 +1,1 @@
+add_library(vboxSoap stdsoap2.cpp soapC.cpp soapClient.cpp)

@@ -403,7 +403,88 @@ namespace VBox
             bool forceNewUuid
         );
 
-        // TODO: registerMachine();
+        /*! \brief
+            Registers the machine previously created using createMachine() or opened using
+            openMachine() within this VirtualBox installation. After successful method invocation, the
+            IMachineRegisteredEvent event is fired. Note: This method implicitly calls IMachine::saveSettings() to save all current machine
+            settings before registering it. If this method fails, the following error codes may be reported:
+            <ul>
+                <li>
+                    VBOX_E_OBJECT_NOT_FOUND: No matching virtual machine found.
+                </li>
+                <li>
+                    VBOX_E_INVALID_OBJECT_STATE: Virtual machine was not created within this VirtualBox instance.
+                </li>
+            </ul>
+        *
+        *   \param machine
+        */
+        void registerMachine(VBox::IMachine machine);
+
+        /*! \brief
+        *
+        *   \param network
+        */
+        void removeCloudNetwork(VBox::ICloudNetwork network);
+
+        /*! \brief Removes the DHCP server settings If this method fails, the following error codes may be reported:
+            //TODO: Exceptions: E_INVALIDARG: Host network interface name already exists. 
+        *
+        *   \param server DHCP server settings to be removed.
+        */
+        void removeDHCPServer(VBox::IDHCPServer server);
+
+        /*! \brief
+        *
+        *   \param network
+        */
+        void removeNATNetwork(VBox::INATNetwork network);
+
+        /*! \brief Removes the global shared folder with the given name previously created by createSharedFolder() from the collection of shared folders and stops sharing it.
+        *   \param name Logical name of the shared folder to remove.
+        */
+        void removeSharedFolder(std::wstring name);
+
+        /*! \brief 
+            Sets associated global extra data. If you pass null or an empty string as a key value, the given key will be deleted.
+            Note: Key must contain printable (non-control) UTF-8 characters only.
+            If this method fails, the following error codes may be reported:
+            //TODO: Exceptions:
+            <ul>
+                <li>
+                    VBOX_E_FILE_ERROR: Settings file not accessible.
+                </li>
+                <li>
+                    VBOX_E_XML_ERROR: Could not parse the settings file.
+                </li>
+                <li>
+                    E_ACCESSDENIED: Modification request refused.
+                </li>
+                <li>
+                    E_INVALIDARG: Key contains invalid characters.
+                </li>
+            </ul>
+        *
+        *   \param key Name of the data key to set.
+        *   \param value Value to assign to the key.
+        */
+        void setExtraData(std::wstring key, std::wstring value);
+
+        /*! \brief 
+            Unlocks the secret data by passing the unlock password to the server. The server will cache
+            the password for that machine.
+            If this method fails, the following error codes may be reported:
+            //TODO: Exceptions:
+            <ul>
+                <li>
+                    VBOX_E_INVALID_VM_STATE: Virtual machine is not mutable.
+                </li>
+            </ul>
+        *
+        *   \param password The cipher key.
+        */
+        void setSettingsSecret(std::wstring password);
+
 
     private:
         std::wstring version;

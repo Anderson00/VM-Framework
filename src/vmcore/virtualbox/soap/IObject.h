@@ -9,24 +9,19 @@
 class IObject{
 
 public:
-    IObject(VBox::SoapObject *soapObj, std::string address) : soapObj{soapObj}, address{address} { }
+    IObject(std::string objKey = "") : objKey{objKey} { }
     IObject(const IObject &obj) = delete;
     IObject(IObject &&obj) = delete;
 
     IObject& operator =(const IObject &obj) = delete;
     IObject& operator =(IObject &&obj) = delete;
 
-    VBox::SoapObject* soap() const {
-        return this->soapObj;
-    }
-
-    const std::string& endpoint() const {
-        return this->address;
+    const std::string& key() const {
+        return this->objKey;
     }
 
 private:
-    VBox::SoapObject *soapObj;
-    std::string address;
+    std::string objKey;
 };
 
 #endif

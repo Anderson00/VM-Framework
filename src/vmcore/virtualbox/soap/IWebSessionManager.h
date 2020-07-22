@@ -13,11 +13,11 @@ namespace VBox{
     class IWebSessionManager : public IObject{
 
     public:
-        IWebSessionManager(VBox::SoapObject *soap, std::string endpoint) : IObject(soap, endpoint) {}
+        IWebSessionManager(){}
 
         std::shared_ptr<VBox::IVirtualBox> logon(std::string username, std::string password);
-        void logoff(const VBox::IVirtualBox &refIVirtualBox);
-        std::shared_ptr<ISession> getSessionObject(const VBox::IVirtualBox &refIVirtualBox);
+        void logoff();
+        std::shared_ptr<ISession> getSessionObject();
 
     private:
         std::shared_ptr<VBox::IVirtualBox> vbox;

@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 
+#include "IObject.h"
 #include "IAppliance.h"
 #include "ICloudNetwork.h"
 #include "IDHCPServer.h"
@@ -26,9 +27,9 @@
 
 namespace VBox
 {
-    class IVirtualBox{
+    class IVirtualBox : IObject{
     public:
-        IVirtualBox();
+        IVirtualBox(std::string vBoxKey) : IObject(vBoxKey) {}
 
         /*! \brief Check if this VirtualBox installation has a firmware of the given type available, either systemwide or per-user. Optionally, this may return a hint where this firmware can be downloaded from.
         

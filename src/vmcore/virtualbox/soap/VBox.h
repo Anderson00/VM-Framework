@@ -5,6 +5,21 @@ namespace VBox{
     
     using SoapObject = struct soap;
 
+    enum class SessionState{
+        Null,       //! Null value (never used by the API).
+        UNLOKED,    //! In IMachine::sessionState, this means that the machine is not locked for any sessions.
+        LOCKED,     //! In IMachine::sessionState, this means that the machine is currently locked for a session, whose process identifier can then be found in the IMachine::sessionPID attribut
+        SPAWNING,   //! A new process is being spawned for the machine as a result of IMachine::launchVMProcess() call.
+        UNLOCKING   //! The session is being unlocked.
+    };
+
+    enum class SessionType{
+        Null,       //! Null value (never used by the API).
+        WRITE_LOCK, //! Session has acquired an exclusive write lock on a machine using IMachine::lockMachine().
+        REMOTE,     //! Session has launched a VM process using IMachine::launchVMProcess().
+        SHARED      //! Session has obtained a link to another session using IMachine::lockMachine().
+    };
+
     enum FirmwareType{
         BIOS,   //! BIOS Firmware.
         EFI,    //! EFI Firmware, bitness detected basing on OS type
@@ -14,18 +29,18 @@ namespace VBox{
     };
 
     enum AccessMode{
-        READONLY, READWRITE
+        READ_ONLY, READ_WRITE
     };
 
     enum DeviceType{
         NULL0,          //! Null value, may also mean “no device” (not allowed for IConsole::getDeviceActivity()).
-        Floppy,         //! Floppy device.
+        FLOPPY,         //! Floppy device.
         DVD,            //! CD/DVD-ROM device.
-        HardDisk,       //! Hard disk device.
-        Network,        //! Network device.
+        HARD_DISK,      //! Hard disk device.
+        NETWORK,        //! Network device.
         USB,            //! USB device.
-        SharedFolder,   //! Shared folder device.
-        Graphics3D      //! Graphics device 3D activity.
+        SHARED_FOLDER,  //! Shared folder device.
+        GRAPHICS3D      //! Graphics device 3D activity.
     };
 
     enum MachineState{
@@ -77,5 +92,7 @@ namespace VBox{
 #include "IAppliance.h"
 #include "IUnattended.h"
 #include "IVirtualBox.h"
+#include "IConsole.h"
+#include "SOAPClientSingleton.h"
 
 #endif

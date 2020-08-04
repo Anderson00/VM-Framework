@@ -1,16 +1,11 @@
 #ifndef IAPPLIANCE_H
 #define IAPPLIANCE_H
 
-#include "VBox.h"
+class IAppliance{
+public:
 
-namespace VBox{
-
-    class IAppliance{
-    public:
-
-    private:
-    };
-
+private:
 };
+
 
 #endif

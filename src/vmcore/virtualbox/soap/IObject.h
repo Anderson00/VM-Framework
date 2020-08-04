@@ -1,15 +1,14 @@
 #ifndef IOBJECT_H
 #define IOBJECT_H
 
-#include "soapH.h"
-#include "VBox.h"
+#include "SOAPClientSingleton.h"
 #include <iostream>
 #include <string>
 
 class IObject{
 
 public:
-    IObject(std::string objKey = "") : objKey{objKey} { }
+    IObject(std::string objKey = std::string("")) : objKey{objKey} {}
     IObject(const IObject &obj) = delete;
     IObject(IObject &&obj) = delete;
 
@@ -18,6 +17,10 @@ public:
 
     const std::string& key() const {
         return this->objKey;
+    }
+
+    SOAPClientSingleton* soapClient(){
+        return SOAPClientSingleton::getInstance();
     }
 
 private:

@@ -1,15 +1,11 @@
 #ifndef IHOST_H
 #define IHOST_H
 
-#include "VBox.h"
+class IHost{
+public:
 
-namespace VBox{
-    class IHost{
-    public:
-
-    private:
+private:
     
-    };
 };
 
 

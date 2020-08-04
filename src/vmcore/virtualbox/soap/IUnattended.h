@@ -1,17 +1,12 @@
 #ifndef IUNATTENDED_H
 #define IUNATTENDED_H
 
-#include "VBox.h"
 
-namespace VBox{
+class IUnattended{
+public:
 
-    class IUnattended{
-    public:
-
-    private:
+private:
     
-    };
-
 };
 
 #endif

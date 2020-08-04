@@ -1,16 +1,16 @@
 #include <iostream>
 #include <cxxopts.hpp>
-#include "vmcore/virtualbox/soap/VBox.h"
-#include "vmcore/virtualbox/soap/IObject.h"
-
 #include "soapH.h"
 #include "vboxBinding.nsmap"
+#include "vmcore/virtualbox/soap/SOAPClientSingleton.h"
+#include "vmcore/virtualbox/soap/IWebSessionManager.h"
 
 
 int main(int argc, char **argv){
     cxxopts::Options options("VM-Framework", "Framework");
 
-    
+    SOAPClientSingleton *client = SOAPClientSingleton::getInstance();
+    std::cout << "ENtrou aqui" << std::endl;
 
     return 0;
 }

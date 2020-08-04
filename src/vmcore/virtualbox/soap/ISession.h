@@ -2,27 +2,27 @@
 #define ISESSION_H
 
 #include "VBox.h"
+#include "IObject.h"
+#include "IMachine.h"
 #include "IConsole.h"
 #include <memory>
 
-namespace VBox{
-    class ISession : public IObject{
-    public:
-        ISession(std::string sessKey) : IObject(sessKey) {}
+class ISession : public IObject{
+public:
+    ISession(std::string sessKey) : IObject(sessKey) {}
 
-        void unlockMachine();
+    void unlockMachine();
 
-        VBox::SessionState state();
-        VBox::SessionType type();
-        std::string name(std::string str);
-        std::string name();
-        std::shared_ptr<VBox::IMachine> machine();
-        std::shared_ptr<VBox::IConsole> console();
+    VBox::SessionState state();
+    VBox::SessionType type();
+    std::string name(std::string str);
+    std::string name();
+    std::shared_ptr<IMachine> machine();
+    std::shared_ptr<IConsole> console();
 
-    private:
-        //std::shared_ptr<VBox::IMachine> machine;
-        //std::shared_ptr<VBox::IConsole> console;
-    };
+private:
+    //std::shared_ptr<VBox::IMachine> machine;
+    //std::shared_ptr<VBox::IConsole> console;
 };
 
 #endif

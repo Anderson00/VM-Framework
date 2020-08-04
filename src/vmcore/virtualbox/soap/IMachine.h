@@ -1,16 +1,10 @@
 #ifndef IMACHINE_H
 #define IMACHINE_H
 
-#include "VBox.h"
+class IMachine{
+public:
 
-namespace VBox{
-
-    class IMachine{
-    public:
-
-    private:
-    };
-
+private:
 };
 
 #endif

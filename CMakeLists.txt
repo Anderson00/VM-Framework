@@ -11,11 +11,9 @@ SET(gtest_force_shared_crt ON CACHE BOOL "testando")
 #SET(gtest_force_shared_crt "ON" CACHE bool)
 message(${gtest_force_shared_crt})
 
-
+SET(VMCORE_SOAP_DIR ${PROJECT_SOURCE_DIR}/src/vmcore/virtualbox/soap)
 
 include(GoogleTest)
 add_subdirectory(extern/cxxopts)
 add_subdirectory(src)
 add_subdirectory(test)
-
-

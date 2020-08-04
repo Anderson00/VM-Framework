@@ -1,16 +1,10 @@
 #ifndef IMEDIUM_H
 #define IMEDIUM_H
 
-#include "VBox.h"
+class IMedium{
+public:
 
-namespace VBox{
-
-    class IMedium{
-    public:
-
-    private:
-    };
-
+private:
 };
 
 #endif

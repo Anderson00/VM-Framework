@@ -1,6 +1,10 @@
 #ifndef VBOX_H
 #define VBOX_H
 
+
+#include <iostream>
+#include <string>
+
 namespace VBox{
     
     using SoapObject = struct soap;
@@ -74,25 +78,5 @@ namespace VBox{
     };
 };
 
-#include "IWebSessionManager.h"
-#include "IHost.h"
-#include "ISystemProperties.h"
-#include "IMachine.h"
-#include "IMedium.h"
-#include "IProgress.h"
-#include "IGuestOSType.h"
-#include "ISharedFolder.h"
-#include "IPerformanceCollector.h"
-#include "IDHCPServer.h"
-#include "INATNetwork.h"
-#include "IEventSource.h"
-#include "ICloudNetwork.h"
-#include "ICloudProviderManager.h"
-#include "ISession.h"
-#include "IAppliance.h"
-#include "IUnattended.h"
-#include "IVirtualBox.h"
-#include "IConsole.h"
-#include "SOAPClientSingleton.h"
 
 #endif

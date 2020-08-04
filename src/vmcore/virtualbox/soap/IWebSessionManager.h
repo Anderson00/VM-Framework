@@ -9,19 +9,17 @@
 #include <string>
 #include <memory>
 
-namespace VBox{
-    class IWebSessionManager : public IObject{
+class IWebSessionManager : public IObject{
 
-    public:
-        IWebSessionManager(){}
+public:
+    IWebSessionManager(){}
 
-        std::shared_ptr<VBox::IVirtualBox> logon(std::string username, std::string password);
-        void logoff();
-        std::shared_ptr<ISession> getSessionObject();
+    std::shared_ptr<IVirtualBox> logon(std::string username, std::string password);
+    void logoff();
+    std::shared_ptr<ISession> getSessionObject();
 
-    private:
-        std::shared_ptr<VBox::IVirtualBox> vbox;
-    };
+private:
+    std::shared_ptr<IVirtualBox> vbox;
 };
 
 

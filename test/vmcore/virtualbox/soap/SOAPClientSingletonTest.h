@@ -6,7 +6,7 @@
 TEST(SOAPClientSingleton, SoapClient){
     SOAPClientSingleton* client = SOAPClientSingleton::getInstance();
     ASSERT_NE(client->soap(), nullptr);
-    ASSERT_STREQ(client->endpoint().c_str(), "127.0.0.1");
+    ASSERT_STREQ(client->endpoint().c_str(), "127.0.0.1:18083");
 }
 
 #endif

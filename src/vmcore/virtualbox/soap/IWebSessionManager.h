@@ -5,6 +5,7 @@
 #include "IVirtualBox.h"
 #include "VBox.h"
 #include "ISession.h"
+#include "exceptions/soap_exception.h"
 #include <iostream>
 #include <string>
 #include <memory>

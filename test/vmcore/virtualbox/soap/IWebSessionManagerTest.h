@@ -4,13 +4,20 @@
 #include "IWebSessionManager.h"
 #include "VBox.h"
 
+class IWebSessionManagerTest : public ::testing::Test {
+protected:
+    void SetUp() override {
+        webSess.logon("","");
+    }
+    IWebSessionManager webSess;
+};
 
 
 TEST(IWebSessionManager, logon){
-    IWebSessionManager m;
-    m.logon("","");
-    auto vbox = m.logon("","");
-    ASSERT_NE(vbox.get(), nullptr);
+    ASSERT_NO_THROW({
+        IWebSessionManager m;
+        auto vbox = m.logon("","");
+    });
 }
 
 #endif

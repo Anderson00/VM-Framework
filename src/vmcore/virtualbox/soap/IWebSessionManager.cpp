@@ -7,30 +7,30 @@ IWebSessionManager::logon(std::string username, std::string password){
     req.username = username;
     req.password = password;
     _ns1__IWebsessionManager_USCORElogonResponse resp;
-    std::cout << "Chegou aqui" << std::endl;
     int result = soap_call___ns1__IWebsessionManager_USCORElogon(this->soapClient()->soap(), this->soapClient()->endpoint().c_str(), nullptr, &req, resp);
-    if(result == SOAP_OK){
+    if(result == SOAP_OK){        
         this->vbox = std::shared_ptr<IVirtualBox>(new IVirtualBox(resp.returnval));
     }else{
-        soap_print_fault(this->soapClient()->soap(), nullptr);
-        //TODO: Exception
+        if(result == SOAP_CLI_FAULT){
+            throw logon_exception("Login or Pass is incorrect!");
+        }else{
+            exception_util::resolve_throw(result, this->soapClient()->soap());
+        }        
     }
     return this->vbox;
 }
 
 void IWebSessionManager::logoff(){
-    /*
-    
+    if(this->vbox.get() == nullptr) return;
     _ns1__IWebsessionManager_USCORElogoff req;
     req.refIVirtualBox = this->vbox->key();
     _ns1__IWebsessionManager_USCORElogoffResponse resp;
-    int result = soap_call___ns1__IWebsessionManager_USCORElogoff(this->soap(), this->endpoint(), nullptr, &req, resp);
+    int result = soap_call___ns1__IWebsessionManager_USCORElogoff(this->soapClient()->soap(), this->soapClient()->endpoint().c_str(), nullptr, &req, resp);
     if(result == SOAP_OK){
         //TODO: 
     }else{
-        //TODO: Exception
+        exception_util::resolve_throw(result, this->soapClient()->soap());
     }
-    */
 }
 
 std::shared_ptr<ISession> IWebSessionManager::getSessionObject(){

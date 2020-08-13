@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 
+#include "exceptions/soap_exception.h"
 #include "VBox.h"
 #include "IObject.h"
 #include "IAppliance.h"
@@ -490,14 +491,14 @@ public:
     const std::string& version()const;
     const std::string& versionNormalized();
     const std::string& versionNormalized()const;
-    const std::string& revision();
-    const std::string& revision()const;
+    unsigned long revision();
+    unsigned long revision()const;
     const std::string& packageType();
     const std::string& packageType()const;
     const std::string& APIVersion();
     const std::string& APIVersion()const;
-    const std::string& APIRevision();
-    const std::string& APIRevision()const;
+    LONG64 APIRevision();
+    LONG64 APIRevision()const;
     const std::string& homeFolder();
     const std::string& homeFolder()const;
     const std::string& settingsFilePath();
@@ -512,10 +513,10 @@ public:
 private:
     std::string versionProp;
     std::string versionNormalizedProp;
-    std::string revisionProp;
+    unsigned long revisionProp;
     std::string packageTypeProp;
     std::string APIVersionProp;
-    std::string APIRevisionProp;
+    LONG64 APIRevisionProp;
     std::string homeFolderProp;
     std::string settingsFilePathProp;
     std::shared_ptr<IHost> hostProp;

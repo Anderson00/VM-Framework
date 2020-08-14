@@ -1,9 +1,9 @@
 #ifndef VBOX_H
 #define VBOX_H
 
-
 #include <iostream>
 #include <string>
+
 
 namespace VBox{
     
@@ -75,6 +75,28 @@ namespace VBox{
         LastOnline,             //! Pseudo-state: last online state (for use in relational expressions).
         FirstTransient,         //! Pseudo-state: first transient state (for use in relational expressions).
         LastTransient           //! Pseudo-state: last transient state (for use in relational expressions).
+    };
+
+    enum PointingHIDType{
+        NONE,              //! No mouse.
+        PS2Mouse,          //! PS/2 auxiliary device, a.k.a. mouse.
+        USBMouse,          //! USB mouse (relative pointer)
+        USBTablet,          //! USB tablet (absolute pointer). Also enables a relative USB mouse in addition.
+        ComboMouse,        //! Combined device, working as PS/2 or USB mouse, depending on guest behavior. Using this device can have negative performance implications.
+        USBMultiTouch      //! USB multi-touch device. Also enables the USB tablet and mouse devices.
+    };
+
+    enum KeyboardHIDType{
+        None,              //! No keyboard.
+        PS2Keyboard,       //! PS/2 keyboard.
+        USBKeyboard,       //! USB keyboard.
+        ComboKeyboard      //! Combined device, working as PS/2 or USB keyboard, depending on guest behavior. Using of such device can have negative performance implications.
+    };
+
+    enum class ChipsetType{
+        Null,              //! null value. Never used by the API.
+        PIIX3,             //! A PIIX3 (PCI IDE ISA Xcelerator) chipset.
+        ICH9               //! A ICH9 (I/O Controller Hub) chipset.
     };
 };
 

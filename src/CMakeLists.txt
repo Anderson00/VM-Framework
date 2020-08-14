@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.1)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
 set(SOURCE_FILES
+vmcore/virtualbox/soap/IVirtualBox.cpp
 vmcore/virtualbox/soap/IAppliance.cpp 
 vmcore/virtualbox/soap/ICloudNetwork.cpp 
 vmcore/virtualbox/soap/ICloudProviderManager.cpp 
@@ -18,7 +19,6 @@ vmcore/virtualbox/soap/IProgress.cpp
 vmcore/virtualbox/soap/ISession.cpp
 vmcore/virtualbox/soap/ISharedFolder.cpp
 vmcore/virtualbox/soap/IUnattended.cpp
-vmcore/virtualbox/soap/IVirtualBox.cpp
 vmcore/virtualbox/soap/IWebSessionManager.cpp
 vmcore/virtualbox/soap/SOAPClientSingleton.cpp)
 

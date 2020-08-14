@@ -1,13 +1,8 @@
 #ifndef IVIRTUAL_BOX_H
 #define IVIRTUAL_BOX_H
 
-
-#include <iostream>
-#include <string>
-#include <vector>
-#include <memory>
-
 #include "exceptions/soap_exception.h"
+#include "utils.h"
 #include "VBox.h"
 #include "IObject.h"
 #include "IAppliance.h"
@@ -26,6 +21,10 @@
 #include "IEventSource.h"
 #include "ICloudProviderManager.h"
 
+#include <iostream>
+#include <string>
+#include <vector>
+#include <memory>
 
 class IVirtualBox : public IObject{
 public:
@@ -135,13 +134,12 @@ public:
     *   \param[in] osTypeId     Guest OS Type ID.
     *   \param[in] flags        Additional property parameters, passed as a comma-separated list of “name=value” type entries. The following ones are recognized: forceOverwrite=1 to overwrite an existing machine settings file, UUID=<uuid> to specify a machine UUID and directoryIncludesUUID=1 to switch to a special VM directory naming scheme which should not be used unless necessary.
     */
-    IMachine createMachine(
+    std::shared_ptr<IMachine> createMachine(
         std::string settingsFile,
         std::string name,
         std::vector<std::string> groups,
         std::string osTypeId,
-        std::string flags
-    );
+        std::string flags);
 
     /*! \brief 
         Creates a new base medium object that will use the given storage format and location for
@@ -266,7 +264,7 @@ public:
         </ul>
     *   \param[in] nameOrId What to search for. This can either be the UUID or the name of a virtual machine.
     */
-    IMachine findMachine(std::wstring nameOrId);
+    std::shared_ptr<IMachine> findMachine(std::wstring nameOrId);
 
     /*!
     *   \param[in] networkName
@@ -318,7 +316,7 @@ public:
     *   
     *   \param[in] machines Array with the machine references.
     */
-    std::vector<VBox::MachineState> getMachineStates(std::vector<std::unique_ptr<IMachine>> machines);
+    std::vector<VBox::MachineState> getMachineStates(std::vector<std::shared_ptr<IMachine>> machines);
 
     /*! \brief Gets all machine references which are in one of the specified groups.
     *
@@ -333,7 +331,7 @@ public:
     *
     *   \param settingsFile Name of the machine settings file.
     */
-    IMachine openMachine(std::wstring settinsFile);
+    std::shared_ptr<IMachine> openMachine(std::wstring settinsFile);
 
     /*! \brief
         Finds existing media or opens a medium from an existing storage location.
@@ -420,7 +418,7 @@ public:
     *
     *   \param machine
     */
-    void registerMachine(IMachine machine);
+    void registerMachine(std::shared_ptr<IMachine> machine);
 
     /*! \brief
     *

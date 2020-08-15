@@ -98,6 +98,125 @@ namespace VBox{
         PIIX3,             //! A PIIX3 (PCI IDE ISA Xcelerator) chipset.
         ICH9               //! A ICH9 (I/O Controller Hub) chipset.
     };
+
+    enum class ClipboardMode{
+        Disabled,
+        HostToGuest,
+        GuestToHost,
+        Bidirectional
+    };
+
+    enum class DnDMode{
+        Disabled,
+        HostToGuest,
+        GuestToHost,
+        Bidirectional
+    };
+
+    enum class ParavirtProvider{
+        None,           //! No provider is used.
+        Default,        //! A default provider is automatically chosen according to the guest OS type.
+        Legacy,         //! Used for VMs which didn’t used to have any provider settings. Usually interpreted as None for most VMs.
+        Minimal,        //! A minimal set of features to expose to the paravirtualized guest.
+        HyperV,         //! Microsoft Hyper-V.
+        KVM             //! Linux KVM.
+    };
+    
+    enum class AutostopType{
+        Disabled,       //! Stopping the VM during system shutdown is disabled.
+        SaveState,      //! The state of the VM will be saved when the system shuts down.
+        PowerOff,       //! The VM is powered off when the system shuts down.
+        AcpiShutdown    //! An ACPI shutdown event is generated.
+    };
+
+    enum class VMProcPriority{
+        Invalid,        //! Invalid priority, do not use.
+        Default,        //! Default process priority determined by the OS.
+        Flat,           //! Assumes a scheduling policy which puts the process at the default priority and with all thread at the same priority
+        Low,            //! Assumes a scheduling policy which puts the process mostly below the default priority of the host OS.
+        Normal,         //! Assume a scheduling policy which shares the CPU resources fairly with other processes running with the default priority of the host OS.
+        High            //! Assumes a scheduling policy which puts the task above the default priority of the host OS. This policy might easily cause other tasks in the system to starve.
+    };
+
+    enum class StorageBus{
+        Null,
+        IDE,
+        SATA,
+        SCSI,
+        Floppy,
+        SAS,
+        USB,
+        PCIe,
+        VirtioSCSI
+    };
+
+    enum class USBControllerType{
+        Null,
+        OHCI,
+        EHCI,
+        XHCI,
+        Last
+    };
+
+    enum class CloneMode{
+        MachineState,           //! Clone the state of the selected machine.
+        MachineAndChildStates,  //! Clone the state of the selected machine and its child snapshots if present.
+        AllStates               //! Clone all states (including all snapshots) of the machine, regardless of the machine object used.
+    };
+
+    enum class CloneOptions{
+        Link,               //! Create a clone VM where all virtual disks are linked to the original VM.
+        KeepAllMACs,        //! Don’t generate new MAC addresses of the attached network adapters.
+        KeepNATMACs,        //! Don’t generate new MAC addresses of the attached network adapters when they are using NAT.
+        KeepDiskNames,      //! Don’t change the disk names.
+        KeepHwUUIDs         //! Don’t change UUID of the machine hardware.
+    };
+
+    enum class CPUPropertyType{
+        Null,                   //! Null value (never used by the API).
+        PAE,                    //! This setting determines whether VirtualBox will expose the Physical Address Extension (PAE) feature of the host CPU to the guest. Note that in case PAE is not available, it will not be reported.
+        LongMode,               //! This setting determines whether VirtualBox will advertise long mode (i.e. 64-bit guest support) and let the guest enter it.
+        TripleFaultReset,       //! This setting determines whether a triple fault within a guest will trigger an internal error condition and stop the VM (default) or reset the virtual CPU/VM and continue execution. 
+        APIC,                   //! This setting determines whether an APIC is part of the virtual CPU. This feature can only be turned off when the X2APIC feature is off.
+        X2APIC,                 //! This setting determines whether an x2APIC is part of the virtual CPU. Since this feature implies that the APIC feature is present, it automatically enables the APIC feature when set.
+        IBPBOnVMExit,           //! If set, force an indirect branch prediction barrier on VM exits if the host CPU supports it. This setting will significantly slow down workloads causing many VM exits, so it is only recommended for situation where there is a real need to be paranoid.
+        IBPBOnVMEntry,          //! If set, force an indirect branch prediction barrier on VM entry if the host CPU supports it. This setting will significantly slow down workloads causing many VM exits, so it is only recommended for situation where there is a real need to be paranoid.
+        HWVirt,                 //! Enabled the hardware virtualization (AMD-V/VT-x) feature on the guest CPU. This requires hardware virtualization on the host CPU.
+        SpecCtrl,               //! If set, the speculation control CPUID bits and MSRs, when available on the host, are exposed to the guest. Depending on the host CPU and operating system, this may significantly slow down workloads causing many VM exits.
+        SpecCtrlByHost,         //! If set, the speculation controls are managed by the host. This is intended for guests which do not set the speculation controls themselves. Note! This has not yet been implemented beyond leaving everything to the host OS.
+        L1DFlushOnEMTScheduling,//! If set and the host is affected by CVE-2018-3646, flushes the level 1 data cache when the EMT is scheduled to do ring-0 guest execution. There could be a small performance penalty for certain typs of workloads. For security reasons this setting will be enabled by default.
+        L1DFlushOnVMEntry,      //! If set and the host is affected by CVE-2018-3646, flushes the level 1 data on every VM entry. This setting may significantly slow down workloads causing many VM exits, so it is only recommended for situation where there is a real need to be paranoid.  
+        MDSClearOnEMTScheduling,//! If set and the host is affected by CVE-2018-12126, CVE-2018- 12127, or CVE-2018-12130, clears the relevant MDS buffers when the EMT is scheduled to do ring-0 guest execution. There could be a small performance penalty for certain typs of workloads. For security reasons this setting will be enabled by default.
+        MDSClearOnVMEntry,      //! If set and the host is affected by CVE-2018-12126, CVE-2018-12127, or CVE-2018-12130, clears the relevant MDS buffers on every VM entry. This setting may slow down workloads causing many VM exits, so it is only recommended for situation where there is a real need to be paranoid.
+
+    };
+
+    enum class ParavirtProvider{
+        None,       //! No provider is used.
+        Default,    //! A default provider is automatically chosen according to the guest OS type. 
+        Legancy,    //! Used for VMs which didn’t used to have any provider settings. Usually interpreted as None for most VMs.
+        Minimal,    //! A minimal set of features to expose to the paravirtualized guest.
+        HyperV,     //! Microsoft Hyper-V.
+        KVM         //! Linux KVM.
+    };
+
+    enum class HWVirtExPropertyType{
+        Null,                   //! Null value (never used by the API).
+        Enabled,                //! Whether hardware virtualization (VT-x/AMD-V) is enabled at all. If such extensions are not available, they will not be used.
+        VPID,                   //! Whether VT-x VPID is enabled. If this extension is not available, it will not be used.
+        NestedPaging,           //! Whether Nested Paging is enabled. If this extension is not available, it will not be used.
+        UnrestrictedExecution,  //! Whether VT-x unrestricted execution is enabled. If this feature is not available, it will not be used.
+        LargePages,             //! Whether large page allocation is enabled; requires nested paging and a 64-bit host.  
+        Force,                  //! Whether the VM should fail to start if hardware virtualization (VT-x/AMD-V) cannot be used. If not set, there will be an automatic fallback to software virtualization.
+        UseNativeApi            //! Use the native hypervisor API instead of the VirtualBox one (HM) for VT-X/AMDV. This is ignored if Enabled isn’t set.  
+    };
+
+    enum class LockType{
+        Null,
+        Shared,
+        Write,
+        VM
+    };
 };
 
 

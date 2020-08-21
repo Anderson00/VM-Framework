@@ -24,12 +24,14 @@
 #include "IBandwidthControl.h"
 #include "IUSBDeviceFilters.h"
 #include "IMedium.h"
-#include "IProgess.h"
+#include "IProgress.h"
 #include "IAppliance.h"
 #include "IVirtualSystemDescription.h"
 #include "INetworkAdapter.h"
 #include "IParallelPort.h"
 #include "ISerialPort.h"
+#include "ISession.h"
+#include "IBandWidthGroup.h"
 
 
 /*! \brief 
@@ -137,7 +139,7 @@ public:
         The specified device slot must not have a device attached to it, or this method will fail.
     */
     void attachDevice(
-        std::name, 
+        std::string name, 
         long controllerPort, 
         long device, 
         VBox::DeviceType type, 
@@ -647,13 +649,672 @@ public:
         std::string folder,
         std::string type
     );
-
+    /*! \brief 
+        Sets a flag in the device information which indicates that the medium is not based on rotational
+        technology, i.e. that the access times are more or less independent of the position on the medium.
+        This may or may not be supported by a particular drive, and is silently ignored in the latter
+        case. At the moment only hard disks (which is a misnomer in this context) accept this setting.
+        Changing the setting while the VM is running is forbidden. The device must already exist; see
+        attachDevice() for how to attach a new device.
+        The controllerPort and device parameters specify the device slot and have have the same
+        meaning as with attachDevice().
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] name Name of the storage controller.
+    *   \param[in] controllerPort Storage controller port.
+    *   \param[in] device Device slot in the given port.
+    *   \param[in] nonRotational New value for the non-rotational device flag.
+    */
+    void nonRotationalDevice(
+        std::string name,
+        long controllerPort,
+        long device,
+        bool nonRotational
+    );
+    /*! \brief 
+        Sets the passthrough mode of an existing DVD device. Changing the setting while the VM is
+        running is forbidden. The setting is only used if at VM start the device is configured as a host
+        DVD drive, in all other cases it is ignored. The device must already exist; see attachDevice() for
+        how to attach a new device.
+        The controllerPort and device parameters specify the device slot and have have the same
+        meaning as with attachDevice().
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] name Name of the storage controller.
+    *   \param[in] controllerPort Storage controller port.
+    *   \param[in] device Device slot in the given port.
+    *   \param[in] passthrough New value for the passthrough setting.
+    */
+    void passthroughDevice(
+        std::string name,
+        long controllerPort,
+        long device,
+        bool passthrough
+    );
+    /*! \brief 
+        Queries for the VM log file name of an given index. Returns an empty string if a log file with that index doesn’t exists.
+    *
+    *   \param[in] idx Which log file name to query. 0=current log file.
+    */
+    std::string queryLogFilename(
+        unsigned long idx
+    );
+    /*! \brief enabled Whether the monitor is enabled in the guest.
+    *
+    *   \param[in] screenId Saved guest screen to query info from.
+    *   \param[in] originX The X position of the guest monitor top left corner.
+    *   \param[in] originY The Y position of the guest monitor top left corner
+    *   \param[in] width Guest width at the time of the saved state was taken.
+    *   \param[in] height Guest height at the time of the saved state was taken.
+    *   \param[in] enabled Whether the monitor is enabled in the guest.
+    */
+    void querySavedGuestScreenInfo(
+        unsigned long screenId,
+        unsigned long originX,
+        unsigned long originY,
+        unsigned long width,
+        unsigned long height,
+        boolean enabled
+    );
+    /*! \brief
+        Removes the permanent shared folder with the given name previously created by
+        createSharedFolder() from the collection of shared folders and stops sharing it.
+        If this method fails, the following error codes may be reported: //TODO: Exceptions 
+    *
+    *   \param[in] name Logical name of the shared folder to remove.
+    */
+    void removeSharedFolder(std::string name);
+    /*! \brief
+        Removes a storage controller from the machine with all devices attached to it. If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] name
+    */
+    void removeStorageController(
+        std::string name
+    );
+    /*! \brief 
+        Removes a USB controller from the machine. If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param name
+    */
+    void removeUSBController(
+        std::string name
+    );
+    /*! \brief 
+        Starts resetting the machine’s current state to the state contained in the given snapshot, asynchronously. All current settings of the machine will be reset and changes stored in differencing
+        media will be lost. See ISnapshot for an introduction to snapshots.
+        After this operation is successfully completed, new empty differencing media are created for
+        all normal media of the machine.
+        If the given snapshot is an online snapshot, the machine will go to the Saved, so that the next
+        time it is powered on, the execution state will be restored from the state of the snapshot.
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] snapshot The snapshot to restore the VM state from.
+    */
+    std::shared_ptr<IProgress> restoreSnapshot(
+        std::shared_ptr<ISnapshot> snapshot
+    );
+    /*! \brief 
+        Saves any changes to machine settings made since the session has been opened or a new machine has been created, or since the last call to saveSettings() or discardSettings(). For registered
+        machines, new settings become visible to all other VirtualBox clients after successful invocation
+        of this method.
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    */
+    void saveSettings();
+    /*! \brief 
+        Saves the current execution state of a running virtual machine and stops its execution.
+        After this operation completes, the machine will go to the Saved state. Next time it is powered
+        up, this state will be restored and the machine will continue its execution from the place where
+        it was saved.
+        This operation differs from taking a snapshot to the effect that it doesn’t create new differencing media. Also, once the machine is powered up from the state saved using this method, the
+        saved state is deleted, so it will be impossible to return to this state later.
+        See also: takeSnapshot()
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    */
+    std::shared_ptr<IProgress> saveState();
+    /*! \brief
+        Sets a flag in the device information which indicates that the medium supports discarding
+        unused blocks (called trimming for SATA or unmap for SCSI devices) .This may or may not be
+        supported by a particular drive, and is silently ignored in the latter case. At the moment only
+        hard disks (which is a misnomer in this context) accept this setting. Changing the setting while
+        the VM is running is forbidden. The device must already exist; see attachDevice() for how to
+        attach a new device.
+        The controllerPort and device parameters specify the device slot and have have the same
+        meaning as with attachDevice().
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] name Name of the storage controller.
+    *   \param[in] controllerPort Storage controller port.
+    *   \param[in] device Device slot in the given port.
+    *   \param[in] discard New value for the discard device flag.
+    */
+    void setAutoDiscardForDevice(
+        std::string name,
+        long controllerPort,
+        long device,
+        bool discard
+    );
+    /*! \brief
+        Sets the bandwidth group of an existing storage device. The device must already exist; see
+        attachDevice() for how to attach a new device.
+        The controllerPort and device parameters specify the device slot and have have the same
+        meaning as with attachDevice().
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] name Name of the storage controller.
+    *   \param[in] controllerPort Storage controller port.
+    *   \param[in] device Device slot in the given port.
+    *   \param[in] bandwidthGroup New value for the bandwidth group or null for no group.
+    */
+    void setBandwidthGroupForDevice(
+        std::string name,
+        long controllerPort,
+        long device,
+        std::shared_ptr<IBandWidthGroup> bandwidthGroup
+    );
+    /*! \brief
+        Puts the given device to the specified position in the boot order.
+        To indicate that no device is associated with the given position, Null should be used.
+        @todo setHardDiskBootOrder(), setNetworkBootOrder()
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] position Position in the boot order (1 to the total number of devices the machine can boot from, as returned by ISystemProperties::maxBootPosition)
+    *   \param[in] device The type of the device used to boot at the given position.
+    */
+    void setBootOrder(
+        unsigned long position,
+        VBox::DeviceType device
+    );
+    /*! \brief
+        Sets the virtual CPU cpuid information for the specified leaf. Note that these values are not
+        passed unmodified. VirtualBox clears features that it doesn’t support.
+        Currently supported index values for cpuid: Standard CPUID leaves: 0 - 0x1f Extended CPUID
+        leaves: 0x80000000 - 0x8000001f VIA CPUID leaves: 0xc0000000 - 0xc000000f
+        The subleaf index is only applicable to certain leaves (see manuals as this is subject to change).
+        See the Intel, AMD and VIA programmer’s manuals for detailed information about the cpuid
+        instruction and its leaves.
+        Do not use this method unless you know exactly what you’re doing. Misuse can lead to random
+        crashes inside VMs.
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *   
+    *   \param[in] idx CPUID leaf index.
+    *   \param[in] idxSub CPUID leaf sub-index (ECX). Set to 0xffffffff (or 0) if not applicable. The 0xffffffff causes it to remove all other subleaves before adding one with sub-index 0.
+    *   \param[in] valEax CPUID leaf value for register eax.
+    *   \param[in] valEbx CPUID leaf value for register ebx.
+    *   \param[in] valEcx CPUID leaf value for register ecx.
+    *   \param[in] valEdx CPUID leaf value for register edx.
+    */
+    void setCPUIDLeaf(
+        unsigned long idx,
+        unsigned long idxSub,
+        unsigned long valEax,
+        unsigned long valEbx,
+        unsigned long valEcx,
+        unsigned long valEdx
+    );
+    /*! \brief 
+        Sets the virtual CPU boolean value of the specified property. If this method fails, the following error codes may be reported:
+        //TODO: Exceptions
+    *
+    *   \param[in] property Property type to query.
+    *   \param[in] value Property value.
+    */
+    void setCPUProperty(
+        VBox::CPUPropertyType property,
+        bool value
+    );
+    /*! \brief
+        Sets associated machine-specific extra data. If you pass null or an empty string as a key value, the given key will be deleted.
+        If this method fails, the following error codes may be reported:
+        //TODO: Exceptions
+    *
+    *   \param[in] key Name of the data key to set.
+    *   \param[in] value Value to assign to the key.
+    */
+    void setExtraData(
+        std::string key,
+        std::string value
+    );
+    /*! \brief
+        Sets, changes or deletes an entry in the machine’s guest property store. If this method fails, the following error codes may be reported:
+        //TODO: Exceptions 
+    *
+    *   \param[in] property The name of the property to set, change or delete.
+    *   \param[in] value The new value of the property to set, change or delete. If the property does not yet exist and value is non-empty, it will be created. If the value is null or empty, the property will be deleted if it exists.
+    *   \param[in] flags Additional property parameters, passed as a comma-separated list of “name=value” type entries.
+    */
+    void setGuestProperty(
+        std::string property,
+        std::string value,
+        std::string flags
+    );
+    /*! \brief
+        Sets or changes a value in the machine’s guest property store. The flags field will be left
+        unchanged or created empty for a new property.
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] property The name of the property to set or change.
+    *   \param[in] value The new value of the property to set or change. If the property does not yet exist and value is non-empty, it will be created.
+    */
+    void setGuestPropertyValue(
+        std::string property,
+        std::string value
+    );
+    /*! \brief
+        Sets a new value for the specified hardware virtualization boolean property.
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] property Property type to set.
+    *   \param[in] value New property value.
+    */
+    void setHWVirtExProperty(
+        VBox::HWVirtExPropertyType property,
+        bool value
+    );
+    /*! \brief
+        Sets a flag in the device information which indicates that the attached device is hot pluggable
+        or not. This may or may not be supported by a particular controller and/or drive, and is silently
+        ignored in the latter case. Changing the setting while the VM is running is forbidden. The device
+        must already exist; see attachDevice() for how to attach a new device.
+        The controllerPort and device parameters specify the device slot and have have the same
+        meaning as with attachDevice().
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] name Name of the storage controller.
+    *   \param[in] controllerPort Storage controller port.
+    *   \param[in] device Device slot in the given port.
+    *   \param[in] hotPluggable New value for the hot-pluggable device flag.
+    */
+    void setHotPluggableForDevice(
+        std::string name,
+        long controllerPort,
+        long device,
+        bool hotPluggable
+    );
+    /*! \brief
+        Sets no bandwidth group for an existing storage device. The device must already exist; see
+        attachDevice() for how to attach a new device. The controllerPort and device parameters
+        specify the device slot and have have the same meaning as with attachDevice().
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] name Name of the storage controller.
+    *   \param[in] controllerPort Storage controller port.
+    *   \param[in] device Device slot in the given port.
+    */
+    void setNoBandwidthGroupForDevice(
+        std::string name,
+        long controllerPort,
+        long device
+    );
+    /*! \brief
+        Currently, it is an error to change this property on any machine. Later this will allow setting a
+        new path for the settings file, with automatic relocation of all files (including snapshots and disk
+        images) which are inside the base directory. This operation is only allowed when there are no
+        pending unsaved settings.
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] settingsFilePath New settings file path, will be used to determine the new location for the attached media if it is in the same directory or below as the original settings file. 
+    */
+    std::shared_ptr<IProgress> setSettingsFilePath(
+        std::string settingsFilePath
+    );
+    /*! \brief
+        Sets the bootable flag of the storage controller with the given name.
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] name
+    *   \param[in] bootable
+    */
+    void setStorageControllerBootable(
+        std::string name,
+        bool bootable
+    );
+    /*! \brief
+        Activates the console window and brings it to foreground on the desktop of the host PC. Many
+        modern window managers on many platforms implement some sort of focus stealing prevention
+        logic, so that it may be impossible to activate a window without the help of the currently active
+        application. In this case, this method will return a non-zero identifier that represents the toplevel window of the VM console process. The caller, if it represents a currently active process,
+        is responsible to use this identifier (in a platform-dependent manner) to perform actual window
+        activation. If this method fails, the following error codes may be reported:
+        //TODO: Exceptions
+    *
+    */
+    long long showConsoleWindow();
+    /*! \brief
+        Saves the current execution state and all settings of the machine and creates differencing
+        images for all normal (non-independent) media. See ISnapshot for an introduction to snapshots.
+        This method can be called for a PoweredOff, Saved (see saveState()), Running or Paused
+        virtual machine. When the machine is PoweredOff, an offline snapshot is created. When the
+        machine is Running a live snapshot is created, and an online snapshot is created when Paused.
+        The taken snapshot is always based on the current snapshot of the associated virtual machine
+        and becomes a new current snapshot. If this method fails, the following error codes may be reported:
+        //TODO: Exceptions
+    *
+    *   \param[in] name Short name for the snapshot.
+    *   \param[in] description Optional description of the snapshot.
+    *   \param[in] pause Whether the VM should be paused while taking the snapshot. Only relevant when the VM is running, and distinguishes between online (true) and live (false) snapshots. When the VM is not running the result is always an offline snapshot.
+    *   \param[out] id UUID of the snapshot which will be created. Useful for follow-up operations after the snapshot has been created.
+    */
+    std::shared_ptr<IProgress> takeSnapshot(
+        std::string name,
+        std::string description,
+        bool pause,
+        std::string& id
+    );
+    /*! \brief
+        Sets the behavior for guest-triggered medium eject. In some situations it is desirable that such
+        ejects update the VM configuration, and in others the eject should keep the VM configuration.
+        The device must already exist; see attachDevice() for how to attach a new device.
+        The controllerPort and device parameters specify the device slot and have have the same
+        meaning as with attachDevice().
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *   \param[in] name Name of the storage controller.
+    *   \param[in] controllerPort Storage controller port.
+    *   \param[in] device Device slot in the given port.
+    *   \param[in] temporaryEject New value for the eject behavior.
+    */
+    void temporaryEjectDevice(
+        std::string name,
+        long controllerPort,
+        long device,
+        bool temporaryEject
+    );
+    /*! \brief
+        Unmounts any currently mounted medium (IMedium, identified by the given UUID id) to
+        the given storage controller (IStorageController, identified by name), at the indicated port and
+        device. The device must already exist;
+        This method is intended only for managing removable media, where the device is fixed but
+        media is changeable at runtime (such as DVDs and floppies). It cannot be used for fixed media
+        such as hard disks.
+        The controllerPort and device parameters specify the device slot and have have the same
+        meaning as with attachDevice().
+        The specified device slot must have a medium mounted, which will be unmounted. If there
+        is no mounted medium it will do nothing. See IMedium for more detailed information about
+        attaching/unmounting media.
+        If this method fails, the following error codes may be reported:
+        //TODO: Exceptions
+    *
+    *   \param[in] name Name of the storage controller to unmount the medium from.
+    *   \param[in] controllerPort Port to unmount the medium from.
+    *   \param[in] device Device slot in the given port to unmount the medium from.
+    *   \param[in] force Allows to force unmount of a medium which is locked by the device slot in the given port medium is attached to.
+    */
+    void unmountMedium(
+        std::string name,
+        long controllerPort,
+        long device,
+        bool force
+    );
+    /*! \brief
+        Unregisters a machine previously registered with IVirtualBox::registerMachine() and optionally do additional cleanup before the machine is unregistered.
+        This method does not delete any files. It only changes the machine configuration and the
+        list of registered machines in the VirtualBox object. To delete the files which belonged to the
+        machine, including the XML file of the machine itself, call deleteConfig(), optionally with the
+        array of IMedium objects which was returned from this method.
+        How thoroughly this method cleans up the machine configuration before unregistering the
+        machine depends on the cleanupMode argument.
+        <ul>
+            <li>
+                With “UnregisterOnly”, the machine will only be unregistered, but no additional cleanup
+                will be performed. The call will fail if the machine is in “Saved” state or has any snapshots
+                or any media attached (see IMediumAttachment). It is the responsibility of the caller to
+                delete all such configuration in this mode. In this mode, the API behaves like the former
+                IVirtualBox::unregisterMachine() API which it replaces.
+            </li>
+            <li>
+                With “DetachAllReturnNone”, the call will succeed even if the machine is in “Saved” state
+                or if it has snapshots or media attached. All media attached to the current machine state
+                or in snapshots will be detached. No medium objects will be returned; all of the machine’s
+                media will remain open.
+            </li>
+            <li>
+                With “DetachAllReturnHardDisksOnly”, the call will behave like with “DetachAllReturnNone”, except that all the hard disk medium objects which were detached from the machine
+                will be returned as an array. This allows for quickly passing them to the deleteConfig() API
+                for closing and deletion.
+            </li>
+            <li>
+                With “Full”, the call will behave like with “DetachAllReturnHardDisksOnly”, except that all
+                media will be returned in the array, including removable media like DVDs and floppies.
+                This might be useful if the user wants to inspect in detail which media were attached to the
+                machine. Be careful when passing the media array to deleteConfig() in that case because
+                users will typically want to preserve ISO and RAW image files.
+            </li>
+        </ul>
+        A typical implementation will use “DetachAllReturnHardDisksOnly” and then pass the resulting IMedium array to deleteConfig(). This way, the machine is completely deleted with all its
+        saved states and hard disk images, but images for removable drives (such as ISO and RAW files)
+        will remain on disk.
+        This API does not verify whether the media files returned in the array are still attached to
+        other machines (i.e. shared between several machines). If such a shared image is passed to
+        deleteConfig() however, closing the image will fail there and the image will be silently skipped.
+        This API may, however, move media from this machine’s media registry to other media registries (see IMedium for details on media registries). For machines created with VirtualBox 4.0 or
+        later, if media from this machine’s media registry are also attached to another machine (shared
+        attachments), each such medium will be moved to another machine’s registry. This is because
+        without this machine’s media registry, the other machine cannot find its media any more and
+        would become inaccessible.
+        This API implicitly calls saveSettings() to save all current machine settings before unregistering it. It may also silently call saveSettings() on other machines if media are moved to other
+        machines’ media registries.
+        After successful method invocation, the IMachineRegisteredEvent event is fired.
+        The call will fail if the machine is currently locked (see ISession).
+        If this method fails, the following error codes may be reported: //TODO: Exceptions
+    *
+    *  \param[in] cleanupMode How to clean up after the machine has been unregistered.
+    */
+    std::vector<std::shared_ptr<IMedium>> unregister(
+        VBox::CleanupMode cleanupMode
+    );
 
     const std::string& icon();
     const std::string& icon()const;
 
     bool accessible();
     bool accessible()const;
+
+    const std::shared_ptr<IVirtualBoxErrorInfo> accessError();
+    const std::shared_ptr<IVirtualBoxErrorInfo> accessError()const;
+
+    const std::string& name();
+    const std::string& name() const;
+
+    const std::string& id();
+    const std::string& id()const;
+
+    const std::vector<std::string>& groups();
+    const std::vector<std::string>& groups()const;
+
+    const std::string& OSTypeId();
+    const std::string& OSTypeId()const;
+
+    const std::string& hardwareVersion();
+    const std::string& hardwareVersion()const;
+    
+    const std::string& hardwareUUID();
+    const std::string& hardwareUUID()const;
+
+    unsigned long CPUCount();
+    unsigned long CPUCount()const;
+
+    bool CPUHotPlugEnabled();
+    bool CPUHotPlugEnabled()const;
+
+    unsigned long CPUExecutionCap();
+    unsigned long CPUExecutionCap()const;
+
+    unsigned long CPUIDPortabilityLevel();
+    unsigned long CPUIDPortabilityLevel()const;
+
+    unsigned long memorySize();
+    unsigned long memorySize()const;
+
+    unsigned long memoryBalloonSize();
+    unsigned long memoryBalloonSize()const;
+
+    bool pageFusionEnabled();
+    bool pageFusionEnabled()const;
+
+    const std::shared_ptr<IGraphicsAdapter> graphicsAdapter();
+    const std::shared_ptr<IGraphicsAdapter> graphicsAdapter()const;
+
+    const std::shared_ptr<IBIOSSettings> BIOSSettings();
+    const std::shared_ptr<IBIOSSettings> BIOSSettings()const;
+
+    const std::shared_ptr<IRecordingSettings> recordingSettings();  
+    const std::shared_ptr<IRecordingSettings> recordingSettings()const;  
+
+    VBox::FirmwareType firmwareType();
+    VBox::FirmwareType firmwareType()const;
+
+    VBox::PointingHIDType pointingHIDType();
+    VBox::PointingHIDType pointingHIDType()const;
+
+    VBox::KeyboardHIDType keyboardHIDType();
+    VBox::KeyboardHIDType keyboardHIDType()const;
+
+    bool HPETEnabled();
+    bool HPETEnabled()const;
+
+    VBox::ChipsetType chipsetType();
+    VBox::ChipsetType chipsetType()const;
+
+    const std::string& snapshotFolder();
+    const std::string& snapshotFolder()const;
+
+    const std::shared_ptr<IVRDEServer> VRDEServer();
+    const std::shared_ptr<IVRDEServer> VRDEServer()const;
+
+    bool emulatedUSBCardReaderEnabled();
+    bool emulatedUSBCardReaderEnabled()const;
+
+    const std::vector<std::shared_ptr<IMediumAttachment>>& mediumAttachments();
+    const std::vector<std::shared_ptr<IMediumAttachment>>& mediumAttachments()const;
+
+    const std::vector<std::shared_ptr<IUSBController>> USBControllers();
+    const std::vector<std::shared_ptr<IUSBController>> USBControllers()const;
+
+    const std::shared_ptr<IUSBDeviceFilters> USBDeviceFilters();
+    const std::shared_ptr<IUSBDeviceFilters> USBDeviceFilters()const;
+
+    const std::shared_ptr<IAudioAdapter> audioAdapter();
+    const std::shared_ptr<IAudioAdapter> audioAdapter()const;
+
+    const std::vector<std::shared_ptr<IStorageController>>& storageControllers();
+    const std::vector<std::shared_ptr<IStorageController>>& storageControllers()const;
+
+    const std::string& settingsFilePath();
+    const std::string& settingsFilePath()const;
+
+    const std::string& settingsAuxFilePath();
+    const std::string& settingsAuxFilePath()const;
+
+    bool settingsModified();
+    bool settingsModified()const;
+
+    VBox::SessionState sessionState();
+    VBox::SessionState sessionState()const;
+
+    const std::string& sessionName();
+    const std::string& sessionName()const;
+
+    unsigned long sessionPID();
+    unsigned long sessionPID()const;
+
+    VBox::MachineState state();
+    VBox::MachineState state()const;
+
+    long long lastStateChange();
+    long long lastStateChange()const;
+
+    const std::string& stateFilePath();
+    const std::string& stateFilePath()const;
+
+    const std::string& logFolder();
+    const std::string& logFolder()const;
+
+    const std::shared_ptr<ISnapshot> currentSnapshot();
+    const std::shared_ptr<ISnapshot> currentSnapshot()const;
+
+    unsigned long snapshotCount();
+    unsigned long snapshotCount()const;
+    
+    bool currentStateModified();
+    bool currentStateModified()const;
+
+    const std::vector<std::shared_ptr<ISharedFolder>>& sharedFolders();
+    const std::vector<std::shared_ptr<ISharedFolder>>& sharedFolders()const;
+
+    VBox::ClipboardMode clipboardMode();
+    VBox::ClipboardMode clipboardMode()const;
+
+    bool clipboardFileTransfersEnabled();
+    bool clipboardFileTransfersEnabled()const;
+
+    VBox::DnDMode dnDMode();
+    VBox::DnDMode dnDMode()const;
+
+    bool teleporterEnabled();
+    bool teleporterEnabled()const;
+
+    unsigned long teleporterPort();
+    unsigned long teleporterPort()const;
+
+    const std::string& eleporterAddress();
+    const std::string& eleporterAddress()const;
+
+    const std::string& teleporterPassword();
+    const std::string& teleporterPassword()const;
+
+    VBox::ParavirtProvider paravirtProvider();
+    VBox::ParavirtProvider paravirtProvider()const;
+
+    bool RTCUseUTC();
+    bool RTCUseUTC()const;
+
+    bool IOCacheEnabled();
+    bool IOCacheEnabled()const;
+
+    unsigned long IOCacheSize();
+    unsigned long IOCacheSize()const;
+
+    const std::vector<std::shared_ptr<IPCIDeviceAttachment>> PCIDeviceAssignments();
+    const std::vector<std::shared_ptr<IPCIDeviceAttachment>> PCIDeviceAssignments()const;
+
+    const std::shared_ptr<IBandwidthControl> bandwidthControl();
+    const std::shared_ptr<IBandwidthControl> bandwidthControl()const;
+
+    bool tracingEnabled();
+    bool tracingEnabled()const;
+
+    const std::string& tracingConfig();
+    const std::string& tracingConfig()const;
+
+    bool allowTracingToAccessVM();
+    bool allowTracingToAccessVM()const;
+
+    bool autostartEnabled();
+    bool autostartEnabled()const;
+
+    unsigned long autostartDelay();
+    unsigned long autostartDelay()const;
+
+    VBox::AutostopType autostopType();
+    VBox::AutostopType autostopType()const;
+
+    const std::string& defaultFrontend();
+    const std::string& defaultFrontend()const;
+
+    bool USBProxyAvailable();
+    bool USBProxyAvailable()const;
+
+    VBox::VMProcPriority VMProcessPriority();
+    VBox::VMProcPriority VMProcessPriority()const;
+
+    const std::string& paravirtDebug();
+    const std::string& paravirtDebug()const;
+
+    const std::string& CPUProfile();
+    const std::string& CPUProfile()const;
 
 private:
     //! Associated parent object.
@@ -707,7 +1368,7 @@ private:
     //! Chipset type used in this VM.
     VBox::ChipsetType chipsetTypeProp;
     //! Full path to the directory used to store snapshot data (differencing media and saved state files) of this machine.
-    std::string snapshotFolder;
+    std::string snapshotFolderProp;
     //! VirtualBox Remote Desktop Extension (VRDE) server object.
     std::shared_ptr<IVRDEServer> VRDEServerProp;
     //! 
@@ -775,7 +1436,7 @@ private:
     //! Array of PCI devices assigned to this machine, to get list of all PCI devices attached to the machine use IConsole::attachedPCIDevices[] attribute, as this attribute is intended to list only devices additional to what described in virtual hardware config.
     std::vector<std::shared_ptr<IPCIDeviceAttachment>> PCIDeviceAssignmentsProp;
     //! Bandwidth control manager.
-    std::shared_ptr<IBandwidthControl> bandwidthControl;
+    std::shared_ptr<IBandwidthControl> bandwidthControlProp;
     //! Enables the tracing facility in the VMM (including PDM devices + drivers).
     bool tracingEnabledProp;
     //! Tracepoint configuration to apply at startup when tracingEnabled is true. 

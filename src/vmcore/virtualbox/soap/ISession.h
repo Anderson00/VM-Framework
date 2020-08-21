@@ -3,9 +3,11 @@
 
 #include "VBox.h"
 #include "IObject.h"
-#include "IMachine.h"
+//#include "IMachine.h"
 #include "IConsole.h"
 #include <memory>
+
+class IMachine;
 
 class ISession : public IObject{
 public:
@@ -14,15 +16,21 @@ public:
     void unlockMachine();
 
     VBox::SessionState state();
+    VBox::SessionState state()const;
     VBox::SessionType type();
-    std::string name(std::string str);
-    std::string name();
+    VBox::SessionType type()const;
+    const std::string& name(std::string str); // Set
+    const std::string& name();
+    const std::string& name()const;
     std::shared_ptr<IMachine> machine();
     std::shared_ptr<IConsole> console();
 
 private:
-    //std::shared_ptr<VBox::IMachine> machine;
-    //std::shared_ptr<VBox::IConsole> console;
+    VBox::SessionState stateProp;
+    VBox::SessionType typeProp;
+    std::string nameProp;
+    std::shared_ptr<IMachine> machineProp;
+    std::shared_ptr<IConsole> consoleProp;
 };
 
 #endif

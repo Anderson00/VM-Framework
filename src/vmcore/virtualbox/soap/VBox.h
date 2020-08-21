@@ -191,15 +191,6 @@ namespace VBox{
 
     };
 
-    enum class ParavirtProvider{
-        None,       //! No provider is used.
-        Default,    //! A default provider is automatically chosen according to the guest OS type. 
-        Legancy,    //! Used for VMs which didn’t used to have any provider settings. Usually interpreted as None for most VMs.
-        Minimal,    //! A minimal set of features to expose to the paravirtualized guest.
-        HyperV,     //! Microsoft Hyper-V.
-        KVM         //! Linux KVM.
-    };
-
     enum class HWVirtExPropertyType{
         Null,                   //! Null value (never used by the API).
         Enabled,                //! Whether hardware virtualization (VT-x/AMD-V) is enabled at all. If such extensions are not available, they will not be used.
@@ -216,6 +207,23 @@ namespace VBox{
         Shared,
         Write,
         VM
+    };
+
+    enum class BitmapFormat{
+        Opaque,     //! Unknown buffer format (the user may not assume any particular format of the buffer).
+        BGR,        //! Generic BGR format without alpha channel. Pixel layout depends on the number of bits per pixel: 32 - bits 31:24 undefined, bits 23:16 R, bits 15:8 G, bits 7:0 B; 16 - bits 15:11 R, bits 10:5 G, bits 4:0 B.
+        BGR0,       //! 4 bytes per pixel: B, G, R, 0.
+        BGRA,       //! 4 bytes per pixel: B, G, R, A.
+        RGBA,       //! 4 bytes per pixel: R, G, B, A.
+        PNG,        //! PNG image.
+        JPEG        //! JPEG image.
+    };
+
+    enum class CleanupMode{
+        UnregisterOnly,
+        DetachAllReturnNone,
+        DetachAllReturnHardDisksOnly,
+        Full
     };
 };
 

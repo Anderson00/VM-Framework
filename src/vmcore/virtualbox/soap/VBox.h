@@ -9,6 +9,20 @@ namespace VBox{
     
     using SoapObject = struct soap;
 
+    enum class HostNetworkInterfaceType{
+        Bridged,
+        HostOnly
+    };
+
+    enum class ProcessorFeature{
+        HWVirtEx,
+        PAE,
+        LongMode,
+        NestedPaging,
+        UnrestrictedGuest,
+        NestedHWVirt
+    };
+
     enum class SessionState{
         Null,       //! Null value (never used by the API).
         UNLOKED,    //! In IMachine::sessionState, this means that the machine is not locked for any sessions.

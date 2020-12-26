@@ -37,4 +37,15 @@ TEST_F(IVirtualBoxTest, Properties){
     EXPECT_TRUE(settingsFilePath != "");
 }
 
+TEST_F(IVirtualBoxTest, machines){
+    ASSERT_NO_THROW({
+        auto machines = vbox->machines();
+
+        ASSERT_TRUE(machines.size() >= 0);
+    });
+
+
+
+}
+
 #endif

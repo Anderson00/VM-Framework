@@ -34,7 +34,12 @@ vmcore/virtualbox/soap/ISession.cpp
 vmcore/virtualbox/soap/ISharedFolder.cpp
 vmcore/virtualbox/soap/IUnattended.cpp
 vmcore/virtualbox/soap/IWebSessionManager.cpp
-vmcore/virtualbox/soap/SOAPClientSingleton.cpp)
+vmcore/virtualbox/soap/SOAPClientSingleton.cpp
+vmcore/virtualbox/soap/IHostUSBDevice.cpp vmcore/virtualbox/soap/IHostUSBDevice.cpp
+vmcore/virtualbox/soap/IHostNetworkInterface.cpp
+vmcore/virtualbox/soap/IHostVideoInputDevice.cpp
+vmcore/virtualbox/soap/IHostUpdate.cpp
+vmcore/virtualbox/soap/IHostUSBDeviceFilter.cpp)
 
 
 add_subdirectory(vboxSoap)

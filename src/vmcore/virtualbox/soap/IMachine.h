@@ -22,7 +22,7 @@
 #include "ISharedFolder.h"
 #include "IPCIDeviceAttachment.h"
 #include "IBandwidthControl.h"
-#include "IUSBDeviceFilters.h"
+#include "IUSBDeviceFilter.h"
 #include "IMedium.h"
 #include "IProgress.h"
 #include "IAppliance.h"

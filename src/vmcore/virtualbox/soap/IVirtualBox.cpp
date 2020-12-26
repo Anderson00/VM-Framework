@@ -31,6 +31,7 @@ prop_generator(const std::string&, IVirtualBox, settingsFilePath, _ns1__IVirtual
 
 //TODO: casos especiais, tem que criar recursivamente os objetos por returnval retorna so a ID
 // prop_generator(const std::shared_ptr<IHost>, host, _ns1__IVirtualBox_USCOREgetHost);
+prop_generator_shared_ptr(const std::shared_ptr<IHost>, IVirtualBox, host, IHost, _ns1__IVirtualBox_USCOREgetHost)
 // prop_generator(const std::shared_ptr<IHost>, host, hostProp);
 // prop_generator(const std::shared_ptr<ISystemProperties>, systemProperties, systemPropertiesProp);
 // prop_generator(const std::vector<std::shared_ptr<IMachine>>&, machines, machinesProp);

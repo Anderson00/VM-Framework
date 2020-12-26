@@ -10,7 +10,8 @@ int main(int argc, char **argv){
     cxxopts::Options options("VM-Framework", "Framework");
 
     SOAPClientSingleton *client = SOAPClientSingleton::getInstance();
-    std::cout << "ENtrou aqui" << std::endl;
+
+    //TODO: cxxopts command line
 
     return 0;
 }

@@ -393,7 +393,7 @@ public:
     *   
     *   \param[in] property Property type to query.
     */
-    boolean getHWVirtExProperty(
+    bool getHWVirtExProperty(
         VBox::HWVirtExPropertyType property
     );
     /*! \brief 
@@ -714,7 +714,7 @@ public:
         unsigned long originY,
         unsigned long width,
         unsigned long height,
-        boolean enabled
+        bool enabled
     );
     /*! \brief
         Removes the permanent shared folder with the given name previously created by

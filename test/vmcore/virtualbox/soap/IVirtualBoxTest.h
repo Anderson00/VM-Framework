@@ -27,15 +27,6 @@ TEST_F(IVirtualBoxTest, Properties){
     std::string homeFolder = vbox->homeFolder();
     std::string settingsFilePath = vbox->settingsFilePath();
 
-    /* std::cout << version << std::endl;
-    std::cout << versionNormalized << std::endl;
-    std::cout << revision << std::endl;
-    std::cout << packageType << std::endl;
-    std::cout << APIVersion << std::endl;
-    std::cout << APIRevision << std::endl;
-    std::cout << homeFolder << std::endl;
-    std::cout << settingsFilePath << std::endl; */
-
     EXPECT_TRUE(version != "");
     EXPECT_TRUE(versionNormalized != "");
     EXPECT_TRUE(revision != 0);

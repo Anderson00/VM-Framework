@@ -32,5 +32,10 @@ prop_generator(bool, IMachine, pageFusionEnabled, _ns1__IMachine_USCOREgetPageFu
 prop_generator_shared_ptr(const std::shared_ptr<IGraphicsAdapter>, IMachine, graphicsAdapter, IGraphicsAdapter, _ns1__IMachine_USCOREgetGraphicsAdapter); 
 prop_generator_shared_ptr(const std::shared_ptr<IBIOSSettings>, IMachine, BIOSSettings, IBIOSSettings, _ns1__IMachine_USCOREgetBIOSSettings); 
 prop_generator_shared_ptr(const std::shared_ptr<IRecordingSettings>, IMachine, recordingSettings, IRecordingSettings, _ns1__IMachine_USCOREgetRecordingSettings);
-prop_generator_shared_ptr(const std::shared_ptr<IRecordingSettings>, IMachine, recordingSettings, IRecordingSettings, _ns1__IMachine_USCOREgetRecordingSettings);
+VBox::FirmwareType IMachine::firmwareType(){
+    _ns1__IMachine_USCOREgetFirmwareType req;
+    req._USCOREthis = this->key();
+    _ns1__IMachine_USCOREgetFirmwareTypeResponse resp;
+}
+//prop_generator_shared_ptr(const std::shared_ptr<IRecordingSettings>, IMachine, recordingSettings, IRecordingSettings, _ns1__IMachine_USCOREgetRecordingSettings);
 

@@ -2,7 +2,7 @@
 #define UTILS_H
 
 #define prop_generator(RETURN, CLASSNAME, PROP, REQ)          \
-    RETURN CLASSNAME##::##PROP(){                    \
+    RETURN CLASSNAME::PROP(){                    \
         REQ req;                                   \
         req._USCOREthis = this->key();             \
         REQ##Response resp;                        \
@@ -18,7 +18,7 @@
     }
 
 #define prop_generator_shared_ptr(RETURN, CLASSNAME, PROP, SHAREDTYPE, REQ)          \
-    RETURN CLASSNAME##::##PROP(){                  \
+    RETURN CLASSNAME::PROP(){                  \
         REQ req;                                   \
         req._USCOREthis = this->key();             \
         REQ##Response resp;                        \
@@ -34,7 +34,7 @@
     }
 
 #define prop_generator_vector_shared_ptr(RETURN, CLASSNAME, PROP, PROPCLASS, REQ)          \
-    RETURN CLASSNAME##::##PROP(){                                               \
+    RETURN CLASSNAME::PROP(){                                                   \
         REQ req;                                                                \
         req._USCOREthis = this->key();                                          \
         REQ##Response resp;                                                     \
@@ -43,7 +43,6 @@
             for(std::string key : resp.returnval){                              \
                 this->PROP##Prop.push_back(new PROPCLASS(key));                 \
             }                                                                   \
-            return this->PROP##Prop;                                            \
         }                                                                       \
         else{                                                                   \
             exception_util::resolve_throw(result, this->soapClient()->soap());  \
@@ -52,7 +51,7 @@
     }
 
 #define prop_generator_vector_string(RETURN, CLASSNAME, PROP, REQ)              \
-    RETURN CLASSNAME##::##PROP(){                                               \
+    RETURN CLASSNAME::PROP(){                                                   \
         REQ req;                                                                \
         req._USCOREthis = this->key();                                          \
         REQ##Response resp;                                                     \

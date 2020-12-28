@@ -505,8 +505,50 @@ public:
     const std::shared_ptr<IHost> host()const;
     const std::shared_ptr<ISystemProperties> systemProperties();
     const std::shared_ptr<ISystemProperties> systemProperties()const;
-    const std::vector<std::shared_ptr<IMachine>>& machines();
-    const std::vector<std::shared_ptr<IMachine>>& machines()const;
+    const std::vector<std::shared_ptr<IMachine>> machines();
+    const std::vector<std::shared_ptr<IMachine>> machines()const;
+
+    const std::vector<std::string> machineGroups();
+    const std::vector<std::string> machineGroups()const;
+
+    const std::vector<std::shared_ptr<IMedium>> hardDisks();
+    const std::vector<std::shared_ptr<IMedium>> hardDisks()const;
+
+    const std::vector<std::shared_ptr<IMedium>> DVDImages();
+    const std::vector<std::shared_ptr<IMedium>> DVDImages()const;
+
+    const std::vector<std::shared_ptr<IMedium>> floppyImages();
+    const std::vector<std::shared_ptr<IMedium>> floppyImages()const;
+
+    const std::vector<std::shared_ptr<IProgress>> progressOperations();
+    const std::vector<std::shared_ptr<IProgress>> progressOperations()const;
+
+    const std::vector<std::shared_ptr<IGuestOSType>> guestOSTypes();
+    const std::vector<std::shared_ptr<IGuestOSType>> guestOSTypes()const;
+
+    const std::vector<std::shared_ptr<ISharedFolder>> sharedFolders();
+    const std::vector<std::shared_ptr<ISharedFolder>> sharedFolders()const;
+
+    const std::shared_ptr<IPerformanceCollector> performaceCollector();
+    const std::shared_ptr<IPerformanceCollector> performaceCollector()const;
+
+    const std::vector<std::shared_ptr<IDHCPServer>> DHCPServers();
+    const std::vector<std::shared_ptr<IDHCPServer>> DHCPServers()const;
+
+    const std::vector<std::shared_ptr<INATNetwork>> NATNetworks();
+    const std::vector<std::shared_ptr<INATNetwork>> NATNetworks()const;
+
+    const std::vector<std::string> internalNetworks();
+    const std::vector<std::string> internalNetworks()const;
+
+    const std::vector<std::string> genericNetworkDrivers();
+    const std::vector<std::string> genericNetworkDrivers()const;
+
+    const std::vector<std::shared_ptr<ICloudNetwork>> cloudNetworks();
+    const std::vector<std::shared_ptr<ICloudNetwork>> cloudNetworks()const;
+
+    const std::shared_ptr<ICloudProviderManager> cloudProviderManager();
+    const std::shared_ptr<ICloudProviderManager> cloudProviderManager()const;
 
 private:
     std::string versionProp;
@@ -519,6 +561,7 @@ private:
     std::string settingsFilePathProp;
     std::shared_ptr<IHost> hostProp;
     std::shared_ptr<ISystemProperties> systemPropertiesProp;
+    std::shared_ptr<IPerformanceCollector> performaceCollectorProp;
     std::vector<std::shared_ptr<IMachine>> machinesProp;
     std::vector<std::string> machineGroupsProp;
     std::vector<std::shared_ptr<IMedium>> hardDisksProp;
@@ -527,7 +570,6 @@ private:
     std::vector<std::shared_ptr<IProgress>> progressOperationsProp;
     std::vector<std::shared_ptr<IGuestOSType>> guestOSTypesProp;
     std::vector<std::shared_ptr<ISharedFolder>> sharedFoldersProp;
-    std::shared_ptr<IPerformanceCollector> performaceCollectorProp;
     std::vector<std::shared_ptr<IDHCPServer>> DHCPServersProp;
     std::vector<std::shared_ptr<INATNetwork>> NATNetworksProp;
     IEventSource eventSourceProp;

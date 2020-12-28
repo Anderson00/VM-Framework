@@ -41,7 +41,7 @@
         int result = soap_call__##REQ(this->soapClient()->soap(), this->soapClient()->endpoint().c_str(), nullptr, &req, resp); \
         if(result == SOAP_OK){                                                  \
             for(std::string key : resp.returnval){                              \
-                this->PROP##Prop.push_back(new PROPCLASS(key));                 \
+                this->PROP##Prop.push_back(std::shared_ptr<PROPCLASS>(new PROPCLASS(key)));                 \
             }                                                                   \
         }                                                                       \
         else{                                                                   \

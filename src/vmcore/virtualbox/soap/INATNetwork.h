@@ -1,9 +1,11 @@
 #ifndef INAT_NETWORK_H
 #define INAT_NETWORK_H
 
-class INATNetwork{
-public:
+#include "IObject.h"
 
+class INATNetwork : public IObject{
+public:
+    INATNetwork(std::string key) : IObject(key) {}
 private:
     
 };

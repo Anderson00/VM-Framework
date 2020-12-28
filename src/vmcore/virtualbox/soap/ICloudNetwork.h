@@ -1,9 +1,11 @@
 #ifndef ICLOUD_NETWORK_H
 #define ICLOUD_NETWORK_H
 
-class ICloudNetwork{
-public:
+#include "IObject.h"
 
+class ICloudNetwork : public IObject{
+public:
+    ICloudNetwork(std::string) : IObject(key){}
 private:
     
 };

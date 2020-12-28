@@ -1,9 +1,11 @@
 #ifndef IMEDIUM_H
 #define IMEDIUM_H
 
-class IMedium{
-public:
+#include "IObject.h"
 
+class IMedium : public IObject{
+public:
+    IMedium(std::string key) : IObject(key) {}
 private:
 };
 

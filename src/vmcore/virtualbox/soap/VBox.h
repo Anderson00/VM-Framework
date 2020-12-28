@@ -23,6 +23,24 @@ namespace VBox{
         NestedHWVirt
     };
 
+    enum class AudioDriverType{
+        Null,         //! Null value, also means “dummy audio driver”.
+        WinMM,        //! Windows multimedia (Windows hosts only, not supported at the moment).
+        OSS,          //! Open Sound System (Linux / Unix hosts only).
+        ALSA,         //! Advanced Linux Sound Architecture (Linux hosts only).
+        DirectSound,  //! DirectSound (Windows hosts only).
+        CoreAudio,    //! CoreAudio (Mac hosts only).
+        MMPM,         //! Reserved for historical reasons.
+        Pulse,        //! PulseAudio (Linux hosts only).
+        SolAudio      //! Solaris audio (Solaris hosts only, not supported at the moment).
+    };
+
+    enum class ProxyMode{
+        System,     //! Use the system proxy settings as far as possible.
+        NoProxy,    //! Direct connection to the Internet.
+        Manual      //! Use the manual proxy from ISystemProperties::proxyURL.
+    };
+
     enum class SessionState{
         Null,       //! Null value (never used by the API).
         UNLOKED,    //! In IMachine::sessionState, this means that the machine is not locked for any sessions.
@@ -135,7 +153,59 @@ namespace VBox{
         HyperV,         //! Microsoft Hyper-V.
         KVM             //! Linux KVM.
     };
-    
+
+    enum class VFSType{
+        File,
+        Cloud,
+        S3,
+        WebDav
+    };
+
+    enum class ImportOptions{
+        KeepAllMACs, //! Don’t generate new MAC addresses of the attached network adapters.
+        KeepNATMACs, //! Don’t generate new MAC addresses of the attached network adapters when they are using NAT.
+        ImportToVDI  //! Import all disks to VDI format
+    };
+
+    enum class ExportOptions{
+        CreateManifest,     //! Write the optional manifest file (.mf) which is used for integrity checks prior import.
+        ExportDVDImages,    //! Export DVD images. Default is not to export them as it is rarely needed for typical VMs.
+        StripAllMACs,       //! Do not export any MAC address information. Default is to keep them to avoid losing information which can cause trouble after import, at the price of risking duplicate MAC addresses, if the import options are used to keep them.
+        StripAllNonNATMACs  //! Do not export any MAC address information, except for adapters using NAT. Default is to keep them to avoid losing information which can cause trouble after import, at the price of risking duplicate MAC addresses, if the import options are used to keep them.
+    };
+
+    enum class RecordingAudioCodec{
+        None,   //! No codec set.
+        WavPCM, //! WAV format, linear PCM, uncompressed. Not implemented yet.
+        Opus    //! Opus Audio.
+    };
+
+    enum class RecordingVideoCodec{
+        None, //! No codec set.
+        VP8,  //! VP8 codec.
+        VP9,  //! VP9 codec. Not implemented yet.
+        AV1   //! AV1 codec. Not implemented yet.
+    };
+
+    enum class RecordingVideoScalingMethod{
+        None,            //! No scaling performed.
+        NearestNeighbor, //! Performs scaling via nearest-neighbor interpolation. Not yet implemented.
+        Bilinear,        //! Performs scaling via bilinear interpolation. Not yet implemented.
+        Bicubic          //! Performs scaling via bicubic interpolation. Not yet implemented.
+    };
+
+    enum class RecordingVideoRateControlMode{
+        CBR, //! Constant bit rate (CBR).
+        VBR, //! Variable bit rate (VBR). Not yet implemented.
+    };
+
+    enum class GraphicsControllerType{
+        Null,    //! Reserved value, invalid.
+        VBoxVGA, //! VirtualBox VGA device.
+        VMSVGA,  //! VMware SVGA II device.
+        VBoxSVGA //! VirtualBox VGA device with VMware SVGA II extensions.
+    };
+
     enum class AutostopType{
         Disabled,       //! Stopping the VM during system shutdown is disabled.
         SaveState,      //! The state of the VM will be saved when the system shuts down.
@@ -150,6 +220,29 @@ namespace VBox{
         Low,            //! Assumes a scheduling policy which puts the process mostly below the default priority of the host OS.
         Normal,         //! Assume a scheduling policy which shares the CPU resources fairly with other processes running with the default priority of the host OS.
         High            //! Assumes a scheduling policy which puts the task above the default priority of the host OS. This policy might easily cause other tasks in the system to starve.
+    };
+
+    enum class NetworkAttachmentType{
+        Null,       //! Null value, also means “not attached”.
+        NAT,
+        Bridged,
+        Internal,
+        HostOnly,
+        Generic,
+        NATNetwork,
+        Cloud
+    };
+
+    enum class NetworkAdapterType{
+        Null,       //! Null value (never used by the API).
+        Am79C970A,  //! AMD PCNet-PCI II network card (Am79C970A).
+        Am79C973,   //! AMD PCNet-FAST III network card (Am79C973).
+        I82540EM,   //! Intel PRO/1000 MT Desktop network card (82540EM).
+        I82543GC,   //! Intel PRO/1000 T Server network card (82543GC).
+        I82545EM,   //! Intel PRO/1000 MT Server network card (82545EM).
+        Virtio,     //! Virtio network device.
+        Am79C960,   //! AMD PCnet-ISA/NE2100 network card (Am79C960).
+        Virtio_1_0 //! Virtio 1.0 network device.
     };
 
     enum class StorageBus{
@@ -172,6 +265,27 @@ namespace VBox{
         Last
     };
 
+    enum class AudioControllerType{
+        AC97,
+        SB16,
+        HDA
+    };
+
+    enum class StorageControllerType{
+        Null,        //! null value. Never used by the API.
+        LsiLogic,    //! A SCSI controller of the LsiLogic variant.
+        BusLogic,    //! A SCSI controller of the BusLogic variant.
+        IntelAhci,   //! An Intel AHCI SATA controller; this is the only variant for SATA.
+        PIIX3,       //! An IDE controller of the PIIX3 variant.
+        PIIX4,       //! An IDE controller of the PIIX4 variant.
+        ICH6,        //! An IDE controller of the ICH6 variant.
+        I82078,      //! A floppy disk controller; this is the only variant for floppy drives.
+        LsiLogicSas, //!A variant of the LsiLogic controller using SAS.
+        USB,         //! Special USB based storage controller.
+        NVMe,        //! An NVMe storage controller.
+        VirtioSCSI   //! Virtio SCSI storage controller.
+    };
+
     enum class CloneMode{
         MachineState,           //! Clone the state of the selected machine.
         MachineAndChildStates,  //! Clone the state of the selected machine and its child snapshots if present.
@@ -184,6 +298,20 @@ namespace VBox{
         KeepNATMACs,        //! Don’t generate new MAC addresses of the attached network adapters when they are using NAT.
         KeepDiskNames,      //! Don’t change the disk names.
         KeepHwUUIDs         //! Don’t change UUID of the machine hardware.
+    };
+
+    enum class PortMode{
+        Disconnected, //! Virtual device is not attached to any real host device.
+        HostPipe,     //! Virtual device is attached to a host pipe.
+        HostDevice,   //! Virtual device is attached to a host device.
+        RawFile,      //! Virtual device is attached to a raw file.
+        TCP           //! Virtual device is attached to a TCP socket.
+    };
+
+    enum class UartType{
+        U16450,  //! The most basic emulated UART which doesn’t support FIFO operation.
+        U16550A, //! The successor of the 16450 UART introducing a 16 byte FIFO to reduce operational overhead.
+        U16750,  //! This UART developed by Texas Instruments introduced a 64 byte FIFO and hardware flow control.
     };
 
     enum class CPUPropertyType{

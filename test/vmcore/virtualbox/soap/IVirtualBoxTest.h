@@ -8,10 +8,13 @@
 class IVirtualBoxTest : public ::testing::Test{
 protected:
     void SetUp() override {
-        IWebSessionManager mn;
         vbox = mn.logon("","");
     }
 
+    void TearDown() override{
+        mn.logoff();
+    }
+    IWebSessionManager mn;
     std::shared_ptr<IVirtualBox> vbox;
     std::shared_ptr<const IVirtualBox> vboxConst;
 };
@@ -35,17 +38,10 @@ TEST_F(IVirtualBoxTest, Properties){
     EXPECT_TRUE(APIRevision != 0);
     EXPECT_TRUE(homeFolder != "");
     EXPECT_TRUE(settingsFilePath != "");
-}
-
-TEST_F(IVirtualBoxTest, machines){
-    ASSERT_NO_THROW({
-        auto machines = vbox->machines();
-
-        ASSERT_TRUE(machines.size() >= 0);
+    EXPECT_TRUE(!vbox->host()->key().empty());
+    EXPECT_NO_THROW({
+        EXPECT_TRUE(vbox->machines().size() >= 0);
     });
 
-
-
 }
-
 #endif

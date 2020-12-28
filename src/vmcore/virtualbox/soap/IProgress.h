@@ -1,9 +1,11 @@
 #ifndef IPROGRESS_H
 #define IPROGRESS_H
 
-class IProgress{
-public:
+#include "IObject.h"
 
+class IProgress : public IObject{
+public:
+    IProgress(std::string key) : IObject(key) {}
 private:
     
 };

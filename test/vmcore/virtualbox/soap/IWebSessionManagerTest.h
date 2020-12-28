@@ -20,4 +20,10 @@ TEST(IWebSessionManager, logon){
     });
 }
 
+TEST_F(IWebSessionManagerTest, logoff){
+    ASSERT_NO_THROW({
+        webSess.logoff();
+    });
+}
+
 #endif

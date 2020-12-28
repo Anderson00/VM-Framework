@@ -1193,8 +1193,8 @@ public:
     const std::vector<std::shared_ptr<IUSBController>> USBControllers();
     const std::vector<std::shared_ptr<IUSBController>> USBControllers()const;
 
-    const std::shared_ptr<IUSBDeviceFilters> USBDeviceFilters();
-    const std::shared_ptr<IUSBDeviceFilters> USBDeviceFilters()const;
+    const std::shared_ptr<IUSBDeviceFilter> USBDeviceFilters();
+    const std::shared_ptr<IUSBDeviceFilter> USBDeviceFilters()const;
 
     const std::shared_ptr<IAudioAdapter> audioAdapter();
     const std::shared_ptr<IAudioAdapter> audioAdapter()const;
@@ -1378,7 +1378,7 @@ private:
     //! Array of USB controllers attached to this machine.
     std::vector<std::shared_ptr<IUSBController>> USBControllersProp;
     //! Associated USB device filters object.
-    std::shared_ptr<IUSBDeviceFilters> USBDeviceFiltersProp;
+    std::shared_ptr<IUSBDeviceFilter> USBDeviceFiltersProp;
     //! Associated audio adapter, always present.
     std::shared_ptr<IAudioAdapter> audioAdapterProp;
     //! Array of storage controllers attached to this machine.

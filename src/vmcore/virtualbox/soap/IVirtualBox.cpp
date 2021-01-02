@@ -25,10 +25,14 @@ prop_generator_vector_string(const std::vector<std::string>, IVirtualBox, intern
 prop_generator_vector_string(const std::vector<std::string>, IVirtualBox, genericNetworkDrivers, _ns1__IVirtualBox_USCOREgetGenericNetworkDrivers);
 prop_generator_shared_ptr(const std::shared_ptr<ICloudProviderManager>, IVirtualBox, cloudProviderManager, ICloudProviderManager, _ns1__IVirtualBox_USCOREgetCloudProviderManager);
 
+const std::vector<std::shared_ptr<IGuestOSType>> IVirtualBox::guestOSTypes(){
+    return this->guestOSTypesProp;
+}
+
 /* //TODO: Caso epecial, returnval é uma struct propria.
 prop_generator_vector_shared_ptr(const std::vector<std::shared_ptr<IGuestOSType>>, IVirtualBox, guestOSTypes, IGuestOSType, _ns1__IVirtualBox_USCOREgetGuestOSType);
 
-const std::vector<std::shared_ptr<IGuestOSType> IVirtualBox::guestOSTypes() {
+const std::vector<std::shared_ptr<IGuestOSType>> IVirtualBox::guestOSTypes() {
     _ns1__IVirtualBox_USCOREgetGuestOSTypes req;
     req._USCOREthis = this->key();
     _ns1__IVirtualBox_USCOREgetGuestOSTypesResponse resp;

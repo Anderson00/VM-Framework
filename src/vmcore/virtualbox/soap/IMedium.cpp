@@ -1,3 +1,1 @@
 #include "IMedium.h"
-
-p

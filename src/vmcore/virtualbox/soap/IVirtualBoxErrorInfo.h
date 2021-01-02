@@ -1,13 +1,14 @@
 #ifndef IVIRTUAL_BOX_ERROR_INFO_H
 #define IVIRTUAL_BOX_ERROR_INFO_H
 
-class IVirtualBoxErrorInfo
+#include "IObject.h"
+
+class IVirtualBoxErrorInfo : public IObject
 {
 private:
-    /* data */
+
 public:
-    IVirtualBoxErrorInfo(/* args */);
-    ~IVirtualBoxErrorInfo();
+    IVirtualBoxErrorInfo(std::string key) : IObject(key){}
 };
 
 #endif

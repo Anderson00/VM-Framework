@@ -5,7 +5,7 @@
 
 class IDHCPServer : public IObject{
 public:
-    IDHCPServer(std::string) : IObject(key) {}
+    IDHCPServer(std::string key) : IObject(key) {}
 private:
 
 };

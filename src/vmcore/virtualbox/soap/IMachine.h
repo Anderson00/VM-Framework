@@ -1108,61 +1108,42 @@ public:
 
     const std::string& icon();
     const std::string& icon()const;
-
     bool accessible();
     bool accessible()const;
-
     const std::shared_ptr<IVirtualBoxErrorInfo> accessError();
     const std::shared_ptr<IVirtualBoxErrorInfo> accessError()const;
-
     const std::string& name();
     const std::string& name() const;
-
     const std::string& id();
     const std::string& id()const;
-
-    const std::vector<std::string>& groups();
-    const std::vector<std::string>& groups()const;
-
+    const std::vector<std::string> groups();
+    const std::vector<std::string> groups()const;
     const std::string& OSTypeId();
     const std::string& OSTypeId()const;
-
     const std::string& hardwareVersion();
     const std::string& hardwareVersion()const;
-    
     const std::string& hardwareUUID();
     const std::string& hardwareUUID()const;
-
     unsigned long CPUCount();
     unsigned long CPUCount()const;
-
     bool CPUHotPlugEnabled();
     bool CPUHotPlugEnabled()const;
-
     unsigned long CPUExecutionCap();
     unsigned long CPUExecutionCap()const;
-
     unsigned long CPUIDPortabilityLevel();
     unsigned long CPUIDPortabilityLevel()const;
-
     unsigned long memorySize();
     unsigned long memorySize()const;
-
     unsigned long memoryBalloonSize();
     unsigned long memoryBalloonSize()const;
-
     bool pageFusionEnabled();
     bool pageFusionEnabled()const;
-
     const std::shared_ptr<IGraphicsAdapter> graphicsAdapter();
     const std::shared_ptr<IGraphicsAdapter> graphicsAdapter()const;
-
     const std::shared_ptr<IBIOSSettings> BIOSSettings();
     const std::shared_ptr<IBIOSSettings> BIOSSettings()const;
-
     const std::shared_ptr<IRecordingSettings> recordingSettings();  
-    const std::shared_ptr<IRecordingSettings> recordingSettings()const;  
-
+    const std::shared_ptr<IRecordingSettings> recordingSettings()const;
     VBox::FirmwareType firmwareType();
     VBox::FirmwareType firmwareType()const;
 
@@ -1180,34 +1161,30 @@ public:
 
     const std::string& snapshotFolder();
     const std::string& snapshotFolder()const;
-
     const std::shared_ptr<IVRDEServer> VRDEServer();
     const std::shared_ptr<IVRDEServer> VRDEServer()const;
-
     bool emulatedUSBCardReaderEnabled();
     bool emulatedUSBCardReaderEnabled()const;
 
+    //TODO: Caso especial IMediumAttachment é um struct
     const std::vector<std::shared_ptr<IMediumAttachment>>& mediumAttachments();
     const std::vector<std::shared_ptr<IMediumAttachment>>& mediumAttachments()const;
 
     const std::vector<std::shared_ptr<IUSBController>> USBControllers();
     const std::vector<std::shared_ptr<IUSBController>> USBControllers()const;
-
     const std::shared_ptr<IUSBDeviceFilter> USBDeviceFilters();
     const std::shared_ptr<IUSBDeviceFilter> USBDeviceFilters()const;
-
     const std::shared_ptr<IAudioAdapter> audioAdapter();
     const std::shared_ptr<IAudioAdapter> audioAdapter()const;
 
-    const std::vector<std::shared_ptr<IStorageController>>& storageControllers();
-    const std::vector<std::shared_ptr<IStorageController>>& storageControllers()const;
+    //TODO: Caso especial.
+    const std::vector<std::shared_ptr<IStorageController>> storageControllers();
+    const std::vector<std::shared_ptr<IStorageController>> storageControllers()const;
 
     const std::string& settingsFilePath();
     const std::string& settingsFilePath()const;
-
     const std::string& settingsAuxFilePath();
     const std::string& settingsAuxFilePath()const;
-
     bool settingsModified();
     bool settingsModified()const;
 
@@ -1241,8 +1218,8 @@ public:
     bool currentStateModified();
     bool currentStateModified()const;
 
-    const std::vector<std::shared_ptr<ISharedFolder>>& sharedFolders();
-    const std::vector<std::shared_ptr<ISharedFolder>>& sharedFolders()const;
+    const std::vector<std::shared_ptr<ISharedFolder>> sharedFolders();
+    const std::vector<std::shared_ptr<ISharedFolder>> sharedFolders()const;
 
     VBox::ClipboardMode clipboardMode();
     VBox::ClipboardMode clipboardMode()const;
@@ -1255,12 +1232,10 @@ public:
 
     bool teleporterEnabled();
     bool teleporterEnabled()const;
-
     unsigned long teleporterPort();
     unsigned long teleporterPort()const;
-
-    const std::string& eleporterAddress();
-    const std::string& eleporterAddress()const;
+    const std::string& teleporterAddress();
+    const std::string& teleporterAddress()const;
 
     const std::string& teleporterPassword();
     const std::string& teleporterPassword()const;
@@ -1277,9 +1252,10 @@ public:
     unsigned long IOCacheSize();
     unsigned long IOCacheSize()const;
 
+    //TODO: caso especial.
     const std::vector<std::shared_ptr<IPCIDeviceAttachment>> PCIDeviceAssignments();
     const std::vector<std::shared_ptr<IPCIDeviceAttachment>> PCIDeviceAssignments()const;
-
+    //TODO: caso especial.
     const std::shared_ptr<IBandwidthControl> bandwidthControl();
     const std::shared_ptr<IBandwidthControl> bandwidthControl()const;
 
@@ -1291,10 +1267,8 @@ public:
 
     bool allowTracingToAccessVM();
     bool allowTracingToAccessVM()const;
-
     bool autostartEnabled();
     bool autostartEnabled()const;
-
     unsigned long autostartDelay();
     unsigned long autostartDelay()const;
 
@@ -1422,7 +1396,7 @@ private:
     //! The TCP port the target teleporter will listen for incoming teleportations on.
     unsigned long teleporterPortProp; 
     //! The address the target teleporter will listen on. If set to an empty string, it will listen on all addresses.
-    std::string eleporterAddressProp;
+    std::string teleporterAddressProp;
     //! The password to check for on the target teleporter.
     std::string teleporterPasswordProp;
     //! The paravirtualized guest interface provider.

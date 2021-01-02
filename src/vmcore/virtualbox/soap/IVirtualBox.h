@@ -507,46 +507,35 @@ public:
     const std::shared_ptr<ISystemProperties> systemProperties()const;
     const std::vector<std::shared_ptr<IMachine>> machines();
     const std::vector<std::shared_ptr<IMachine>> machines()const;
-
     const std::vector<std::string> machineGroups();
     const std::vector<std::string> machineGroups()const;
-
     const std::vector<std::shared_ptr<IMedium>> hardDisks();
     const std::vector<std::shared_ptr<IMedium>> hardDisks()const;
-
     const std::vector<std::shared_ptr<IMedium>> DVDImages();
     const std::vector<std::shared_ptr<IMedium>> DVDImages()const;
-
     const std::vector<std::shared_ptr<IMedium>> floppyImages();
     const std::vector<std::shared_ptr<IMedium>> floppyImages()const;
-
     const std::vector<std::shared_ptr<IProgress>> progressOperations();
     const std::vector<std::shared_ptr<IProgress>> progressOperations()const;
 
+    //TODO: caso Especial
     const std::vector<std::shared_ptr<IGuestOSType>> guestOSTypes();
     const std::vector<std::shared_ptr<IGuestOSType>> guestOSTypes()const;
 
     const std::vector<std::shared_ptr<ISharedFolder>> sharedFolders();
     const std::vector<std::shared_ptr<ISharedFolder>> sharedFolders()const;
-
     const std::shared_ptr<IPerformanceCollector> performaceCollector();
     const std::shared_ptr<IPerformanceCollector> performaceCollector()const;
-
     const std::vector<std::shared_ptr<IDHCPServer>> DHCPServers();
     const std::vector<std::shared_ptr<IDHCPServer>> DHCPServers()const;
-
     const std::vector<std::shared_ptr<INATNetwork>> NATNetworks();
     const std::vector<std::shared_ptr<INATNetwork>> NATNetworks()const;
-
     const std::vector<std::string> internalNetworks();
     const std::vector<std::string> internalNetworks()const;
-
     const std::vector<std::string> genericNetworkDrivers();
     const std::vector<std::string> genericNetworkDrivers()const;
-
     const std::vector<std::shared_ptr<ICloudNetwork>> cloudNetworks();
     const std::vector<std::shared_ptr<ICloudNetwork>> cloudNetworks()const;
-
     const std::shared_ptr<ICloudProviderManager> cloudProviderManager();
     const std::shared_ptr<ICloudProviderManager> cloudProviderManager()const;
 

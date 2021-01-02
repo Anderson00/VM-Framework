@@ -5,7 +5,7 @@
 
 class ICloudNetwork : public IObject{
 public:
-    ICloudNetwork(std::string) : IObject(key){}
+    ICloudNetwork(std::string key) : IObject(key){}
 private:
     
 };

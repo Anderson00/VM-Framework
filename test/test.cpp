@@ -7,6 +7,7 @@
 #include "SOAPClientSingleton.h"
 #include "vmcore/virtualbox/soap/IWebSessionManagerTest.h"
 #include "vmcore/virtualbox/soap/IVirtualBoxTest.h"
+#include "vmcore/virtualbox/soap/IMachineTest.h"
 
 using namespace std;
 
